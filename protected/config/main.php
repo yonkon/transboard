@@ -16,28 +16,44 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+    'application.modules.user.models.*',
+    'application.modules.user.components.*',
+    'application.modules.rights.*',
+    'application.modules.rights.components.*',
 	),
 
-	'defaultController'=>'post',
+	'defaultController'=>'site',
 
 	// application components
 	'components'=>array(
-		'user'=>array(
+/*		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
-		),
-/*		'db'=>array(
-			'connectionString' => 'sqlite:protected/data/blog.db',
-			'tablePrefix' => 'tbl_',
-		),
-*/
+		),*/
+    'user'=>array(
+      'class'=>'RWebUser',
+      // enable cookie-based authentication
+      'allowAutoLogin'=>true,
+      'loginUrl'=>array('/user/login'),
+    ),
+    'authManager'=>array(
+      'class'=>'RDbAuthManager',
+      'connectionID'=>'db',
+      'defaultRoles'=>array('Authenticated', 'Guest'),
+    ),
+
+    /*		'db'=>array(
+          'connectionString' => 'sqlite:protected/data/blog.db',
+          'tablePrefix' => 'tbl_',
+        ),
+    */
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=transboard',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => '103103103',
 			'charset' => 'utf8',
 			'tablePrefix' => 'tbl_',
 		),
@@ -48,10 +64,14 @@ return array(
 		),
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+      'showScriptName'=>false,
 			'rules'=>array(
-				'post/<id:\d+>/<title:.*?>'=>'post/view',
-				'posts/<tag:.*?>'=>'post/index',
+        'contact'=>'site/contact',
+        'login'=>'site/login',
+        'logout'=>'site/logout',
+        '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+//				'<controller:\w+>'=>'<controller>/index',
 			),
 		),
 		'log'=>array(
@@ -70,6 +90,23 @@ return array(
 			),
 		),
 	),
+  'modules' => array(
+    'gii'=>array(
+      'class'=>'system.gii.GiiModule',
+      'password'=>'admin',
+      // 'ipFilters'=>array(…список IP…),
+      // 'newFileMode'=>0666,
+      // 'newDirMode'=>0777,
+    ),
+    'user'=>array(
+      'tableUsers' => 'tbl_users',
+      'tableProfiles' => 'tbl_profiles',
+      'tableProfileFields' => 'tbl_profiles_fields',
+    ),
+    'rights'=>array(
+      'install'=>false,
+    ),
+  ),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
