@@ -57,6 +57,11 @@ class SiteController extends Controller
 		$this->render('contact',array('model'=>$model));
 	}
 
+	public function actionIndex()
+	{
+		$this->render('index');
+	}
+
 	/**
 	 * Displays the login page
 	 */
