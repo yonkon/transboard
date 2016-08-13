@@ -11,6 +11,20 @@ return array(
 	'adminEmail'=>'yonkon.ru@gmail.com',
 	// number of posts displayed per page
 	'perPage'=>10,
+  'social' => array(
+    'fb' => array(
+      'page' => 'https://www.facebook.com/transboard',
+    ),
+    'youtube' => array(
+      'page' => 'https://www.facebook.com/transboard',
+    ),
+    'vk' => array(
+      'page' => 'https://www.facebook.com/transboard',
+    ),
+    'g+' => array(
+      'page' => 'https://www.facebook.com/transboard',
+    ),
+  ),
 	// the copyright information displayed in the footer section
 	'copyrightInfo'=>'Copyright &copy; 2016 by Vladimir Sudarkov.',
 );

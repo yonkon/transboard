@@ -71,6 +71,11 @@ return array(
       'showScriptName'=>false,
 			'rules'=>array(
         '' => 'site/index',
+        'view/<id:\d+>' => 'advert/view?id=<id>',
+        'view/<alias:\w+>' => 'advert/view?alias=<alias>',
+        'category/<category:\w+>/<model:\w+>' => 'advert/categories?cat=<category>&model=<model>',
+        'category/<category:\w+>' => 'advert/categories?cat=<category>',
+        'business'=>'site/business',
         'contact'=>'site/contact',
         'login'=>'user/login',
         'logout'=>'user/logout',
