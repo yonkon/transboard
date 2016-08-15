@@ -13,3 +13,11 @@ $config=dirname(__FILE__).'/protected/config/test.php';
 
 require_once($yii);
 Yii::createWebApplication($config)->run();
+/*
+ * несколько городов в фильтре
+ * города влияют на рекламу
+ * страны пока не нужно
+ * сообщения как на дипломах
+ * валюты с отметкой примерно и сервиса конвертации
+ *
+ */

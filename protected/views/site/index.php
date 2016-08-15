@@ -53,9 +53,9 @@ $app = Yii::app();
           </div>
         </div>
         <div class="nav-box-mobile visible-xs-block">
-          <a id="openLeftMenu" class="menu-burger icon-burger abs" href=""></a>
-          <a class="icon-plus" href="/advert/add"></a>
-          <a class="menu-filters icon-search_filters_bars abs" href="/advert/favourites"><span class="icon-sercz"></span></a>
+          <a id="openLeftMenu" class="menu-burger icon-burger abs" href="<?= $app->createUrl('') ?>"></a>
+          <a class="icon-plus" href="<?= $app->createUrl('/advert/add') ?>"></a>
+          <a class="menu-filters icon-search_filters_bars abs" href="<?= $app->createUrl('/advert/favourites') ?>"><span class="icon-sercz"></span></a>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ $app = Yii::app();
   <main class="body-container">
     <div class="full-branding clr rel">
       <div id="homebanner" class="full-branding__wrapper">
-        <a href="" target="_blank" data-homebanner-link class="full-branding__banner"
+        <a href="<?= $app->createUrl('') ?>" target="_blank" data-homebanner-link class="full-branding__banner"
            style="background-image: url('/images_homepagebanner_otomotopl/829190881_1_1920x480_rev006.jpg')">&nbsp;</a><? //todo link?>
         <img src="http://pubads.g.doubleclick.net/gampad/ad?iu=/55100874/Otomoto_pl/Mainpage/Background&sz=1x1&t=&c=12345678" height="1" width="1" />
         <script type="text/javascript">document.body.className += " has-bg-banner";</script>
@@ -84,43 +84,43 @@ $app = Yii::app();
           <div class="categories-main-block search-area__tabs-header">
             <ul id="categories-main" class="om-tabs search-area__tabs-header-inner-wrapper">
               <li data-click-report data-content="params_29" class="selected search-area__tab-item">
-                <a href="/cars" title="<?= __('Легковые') ?>" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/cars') ?>" title="<?= __('Легковые') ?>" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-osobowe"></span>
                   <h2 class="search-area__tab-label"><?= __('Легковые') ?></h2>
                 </a>
               </li>
               <li data-click-report data-content="params_1" class=" search-area__tab-item">
-                <a href="/maszyny-rolnicze/" title="Maszyny rolnicze" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/maszyny-rolnicze/') ?>" title="Maszyny rolnicze" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-maszyny-rolnicze"></span>
                   <h2 class="search-area__tab-label">Rolnicze</h2>
                 </a>
               </li>
               <li data-click-report data-content="params_73" class=" search-area__tab-item">
-                <a href="/dostawcze/" title="Samochody dostawcze" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/dostawcze/') ?>" title="Samochody dostawcze" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-dostawcze"></span>
                   <h2 class="search-area__tab-label">Dostawcze</h2>
                 </a>
               </li>
               <li data-click-report data-content="params_57" class=" search-area__tab-item">
-                <a href="/ciezarowe/" title="Samochody ciężarowe" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/ciezarowe/') ?>" title="Samochody ciężarowe" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-ciezarowe"></span>
                   <h2 class="search-area__tab-label">Ciężarowe</h2>
                 </a>
               </li>
               <li data-click-report data-content="params_65" class=" search-area__tab-item">
-                <a href="/motocykle-i-quady/" title="" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/motocykle-i-quady/') ?>" title="" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-motocykle-i-quady"></span>
                   <h2 class="search-area__tab-label">Motocykle</h2>
                 </a>
               </li>
               <li data-click-report data-content="params_31" class=" search-area__tab-item">
-                <a href="/maszyny-budowlane/" title="Maszyny budowlane" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/maszyny-budowlane/') ?>" title="Maszyny budowlane" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-maszyny-budowlane"></span>
                   <h2 class="search-area__tab-label">Budowlane</h2>
                 </a>
               </li>
               <li data-click-report data-content="params_9" class=" search-area__tab-item">
-                <a href="/przyczepy/" title="Przyczepy i naczepy" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('/przyczepy/') ?>" title="Przyczepy i naczepy" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-przyczepy"></span>
                   <h2 class="search-area__tab-label">Przyczepy</h2>
                 </a>
@@ -128,19 +128,19 @@ $app = Yii::app();
               <li class="ignore search-area__tab-item search-area__dropdown-tab">
                 <a href="#" class="search-area__tab-link search-area__dropdown-link"><?= __('Другие категории') ?></a>
                 <div class="search-area__dropdown">
-                  <a href="/osobowe/" class="search-area__dropdown-option" data-click-report data-category="29"><h2 class="search-area__dropdown-option-text">Osobowe</h2></a>
-                  <a href="/maszyny-rolnicze/" class="search-area__dropdown-option" data-click-report data-category="1"><h2 class="search-area__dropdown-option-text">Rolnicze</h2></a>
-                  <a href="/dostawcze/" class="search-area__dropdown-option" data-click-report data-category="73"><h2 class="search-area__dropdown-option-text">Dostawcze</h2></a>
-                  <a href="/ciezarowe/" class="search-area__dropdown-option" data-click-report data-category="57"><h2 class="search-area__dropdown-option-text">Ciężarowe</h2></a>
-                  <a href="/motocykle-i-quady/" class="search-area__dropdown-option" data-click-report data-category="65"><h2 class="search-area__dropdown-option-text">Motocykle</h2></a>
-                  <a href="/maszyny-budowlane/" class="search-area__dropdown-option" data-click-report data-category="31"><h2 class="search-area__dropdown-option-text">Budowlane</h2></a>
-                  <a href="/przyczepy/" class="search-area__dropdown-option" data-click-report data-category="9"><h2 class="search-area__dropdown-option-text">Przyczepy</h2></a>
-                  <a href="http://allegro.pl/czesci-samochodowe-620" class="search-area__dropdown-option" data-category="allegro" target="_blank">
+                  <a href="<?= $app->createUrl('/osobowe/') ?>" class="search-area__dropdown-option" data-click-report data-category="29"><h2 class="search-area__dropdown-option-text">Osobowe</h2></a>
+                  <a href="<?= $app->createUrl('/maszyny-rolnicze/') ?>" class="search-area__dropdown-option" data-click-report data-category="1"><h2 class="search-area__dropdown-option-text">Rolnicze</h2></a>
+                  <a href="<?= $app->createUrl('/dostawcze/') ?>" class="search-area__dropdown-option" data-click-report data-category="73"><h2 class="search-area__dropdown-option-text">Dostawcze</h2></a>
+                  <a href="<?= $app->createUrl('/ciezarowe/') ?>" class="search-area__dropdown-option" data-click-report data-category="57"><h2 class="search-area__dropdown-option-text">Ciężarowe</h2></a>
+                  <a href="<?= $app->createUrl('/motocykle-i-quady/') ?>" class="search-area__dropdown-option" data-click-report data-category="65"><h2 class="search-area__dropdown-option-text">Motocykle</h2></a>
+                  <a href="<?= $app->createUrl('/maszyny-budowlane/') ?>" class="search-area__dropdown-option" data-click-report data-category="31"><h2 class="search-area__dropdown-option-text">Budowlane</h2></a>
+                  <a href="<?= $app->createUrl('/przyczepy/') ?>" class="search-area__dropdown-option" data-click-report data-category="9"><h2 class="search-area__dropdown-option-text">Przyczepy</h2></a>
+                  <a href="<?= $app->createUrl('http://allegro.pl/czesci-samochodowe-620') ?>" class="search-area__dropdown-option" data-category="allegro" target="_blank">
                     <h2 class="search-area__dropdown-option-text">Części <span>Allegro</span></h2></a>
                 </div>
               </li>
               <li class="ignore search-area__tab-item" data-content="allegro">
-                <a href="http://allegro.pl/czesci-samochodowe-620" target="_blank" class="search-area__tab-link">
+                <a href="<?= $app->createUrl('http://allegro.pl/czesci-samochodowe-620') ?>" target="_blank" class="search-area__tab-link">
                   <span class="car-type search-area__tab-icon icon-czesci"></span>
                   <strong class="search-area__tab-label">Części <span>Allegro</span></strong>
                 </a>
@@ -377,7 +377,7 @@ $app = Yii::app();
         <div class="daily-offers offer-big">
           <div class="item-box">
             <div class="item-body big">
-              <a class="rel img-cover" href="/view/bmw-seria-4-xdrive-cabrio-dealer-bmw-zdunek-2015r-ID4p5dq3" style="background-image: url('/images_otomotopl/817196879_8_732x488_xdrive-cabrio-dealer-bmw-zdunek-2015r-_rev002.jpg')" title="BMW Seria 4 xdrive Cabrio Dealer BMW Zdunek 2015r">
+              <a class="rel img-cover" href="<?= $app->createUrl('/view/bmw-seria-4-xdrive-cabrio-dealer-bmw-zdunek-2015r-ID4p5dq3') ?>" style="background-image: url('/images_otomotopl/817196879_8_732x488_xdrive-cabrio-dealer-bmw-zdunek-2015r-_rev002.jpg')" title="BMW Seria 4 xdrive Cabrio Dealer BMW Zdunek 2015r">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
@@ -387,7 +387,7 @@ $app = Yii::app();
                     <span class="om-price">246 900 <sup>UAH</sup></span>
                   </div>
                   <h3 class="om-title">
-                    <a href="/view/bmw-seria-4-xdrive-cabrio-dealer-bmw-zdunek-2015r-ID4p5dq3.html" title="BMW Seria 4 xdrive Cabrio Dealer BMW Zdunek 2015r">
+                    <a href="<?= $app->createUrl('/view/bmw-seria-4-xdrive-cabrio-dealer-bmw-zdunek-2015r-ID4p5dq3.html') ?>" title="BMW Seria 4 xdrive Cabrio Dealer BMW Zdunek 2015r">
                       <span class="visible-tablet-up">BMW Seria 4 xdrive Cabrio ...</span>
                       <span class="visible-mobile">BMW Seria 4 xdrive Cabrio Dealer BMW Zdunek 2015r</span>
                     </a>
@@ -407,13 +407,13 @@ $app = Yii::app();
         <div class="daily-offers offers-mid">
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/opel-insignia-ID6yjMD1.html" title="Opel Insignia" style="background-image: url('/images_otomotopl/829069509_6_732x488_rev001.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/opel-insignia-ID6yjMD1.html') ?>" title="Opel Insignia" style="background-image: url('/images_otomotopl/829069509_6_732x488_rev001.jpg')">
                 <span class="img-overlay"></span>
                 <span class="om-price visible-tablet-up">52 000 <sup>PLN</sup></span>
               </a>
               <div class="details">
                 <h3 class="om-title">
-                  <a href="/view/opel-insignia-ID6yjMD1.html" title="Opel Insignia">
+                  <a href="<?= $app->createUrl('/view/opel-insignia-ID6yjMD1.html') ?>" title="Opel Insignia">
                     <span class="visible-tablet-up">Opel Insignia</span>
                     <span class="visible-mobile">Opel Insignia</span>
                   </a>
@@ -426,13 +426,13 @@ $app = Yii::app();
           </div>
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/renault-megane-2014-1-6-16v-generation-salon-pl-polecam-ID6ykcsB.html" title="Renault Megane 2014 1.6 16V Generation salon PL POLECAM" style="background-image: url('/images_otomotopl/829270133_14_732x488_2014-16-16v-generation-salon-pl-polecam-.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/renault-megane-2014-1-6-16v-generation-salon-pl-polecam-ID6ykcsB.html') ?>" title="Renault Megane 2014 1.6 16V Generation salon PL POLECAM" style="background-image: url('/images_otomotopl/829270133_14_732x488_2014-16-16v-generation-salon-pl-polecam-.jpg')">
                 <span class="img-overlay"></span>
                 <span class="om-price visible-tablet-up">18 999 <sup>PLN</sup></span>
               </a>
               <div class="details">
                 <h3 class="om-title">
-                  <a href="/view/renault-megane-2014-1-6-16v-generation-salon-pl-polecam-ID6ykcsB.html" title="Renault Megane 2014 1.6 16V Generation salon PL POLECAM">
+                  <a href="<?= $app->createUrl('/view/renault-megane-2014-1-6-16v-generation-salon-pl-polecam-ID6ykcsB.html') ?>" title="Renault Megane 2014 1.6 16V Generation salon PL POLECAM">
                     <span class="visible-tablet-up">Renault Megane 2014 1.6 16...</span>
                     <span class="visible-mobile">Renault Megane 2014 1.6 16V Generation salon PL POLECAM</span>
                   </a>
@@ -448,13 +448,13 @@ $app = Yii::app();
         <div class="daily-offers offers-small">
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/mercedes-benz-klasa-e-mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-ID6yiZGF.html" title="Mercedes-Benz Klasa E Mercedes E350 AMG 306KM - serwis ASO Romera Historia do wglądu" style="background-image: url('/images_otomotopl/828717199_1_320x240_mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-piaseczno.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/mercedes-benz-klasa-e-mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-ID6yiZGF.html') ?>" title="Mercedes-Benz Klasa E Mercedes E350 AMG 306KM - serwis ASO Romera Historia do wglądu" style="background-image: url('/images_otomotopl/828717199_1_320x240_mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-piaseczno.jpg')">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
                 <div class="inner">
                   <h3 class="om-title">
-                    <a href="/view/mercedes-benz-klasa-e-mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-ID6yiZGF.html" title="Mercedes-Benz Klasa E Mercedes E350 AMG 306KM - serwis ASO Romera Historia do wglądu">
+                    <a href="<?= $app->createUrl('/view/mercedes-benz-klasa-e-mercedes-e350-amg-306km-serwis-aso-romera-historia-do-wgladu-ID6yiZGF.html') ?>" title="Mercedes-Benz Klasa E Mercedes E350 AMG 306KM - serwis ASO Romera Historia do wglądu">
                       <span class="visible-tablet-up">Mercedes-Benz Kl...</span>
                       <span class="visible-mobile">Mercedes-Benz Klasa E Mercedes E350 AMG 306KM - serwis ASO Romera Historia do wglądu</span>
                     </a>
@@ -468,13 +468,13 @@ $app = Yii::app();
           </div>
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/nissan-qashqai-1-6-dig-t-163km-tekna-panorama-czarny-od-reki-ID6yd9f9.html" title="Nissan Qashqai 1.6 DIG-T 163KM TEKNA + panorama czarny od ręki !" style="background-image: url('/images_otomotopl/825633955_1_320x240_16-dig-t-163km-tekna-panorama-czarny-od-reki-zielona-gora.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/nissan-qashqai-1-6-dig-t-163km-tekna-panorama-czarny-od-reki-ID6yd9f9.html') ?>" title="Nissan Qashqai 1.6 DIG-T 163KM TEKNA + panorama czarny od ręki !" style="background-image: url('/images_otomotopl/825633955_1_320x240_16-dig-t-163km-tekna-panorama-czarny-od-reki-zielona-gora.jpg')">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
                 <div class="inner">
                   <h3 class="om-title">
-                    <a href="/view/nissan-qashqai-1-6-dig-t-163km-tekna-panorama-czarny-od-reki-ID6yd9f9.html" title="Nissan Qashqai 1.6 DIG-T 163KM TEKNA + panorama czarny od ręki !">
+                    <a href="<?= $app->createUrl('/view/nissan-qashqai-1-6-dig-t-163km-tekna-panorama-czarny-od-reki-ID6yd9f9.html') ?>" title="Nissan Qashqai 1.6 DIG-T 163KM TEKNA + panorama czarny od ręki !">
                       <span class="visible-tablet-up">Nissan Qashqai </span>
                       <span class="visible-mobile">Nissan Qashqai 1.6 DIG-T 163KM TEKNA + panorama czarny od ręki !</span>
                     </a>
@@ -488,13 +488,13 @@ $app = Yii::app();
           </div>
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/renault-trafic-klima-elektryka-parktronik-2012-rok-gwarancja-w-cenie-vat-1-odpis-100-vat-oferta-2193ga-ID6yiacp.html" title="Renault Trafic Klima Elektryka Parktronik 2012 Rok Gwarancja w Cenie .  Vat 1 - Odpis -100%Vat .Oferta 2193GA" style="background-image: url('/images_otomotopl/828305359_1_320x240_vat-1-odpis-100vat-oferta-2193ga-luban.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/renault-trafic-klima-elektryka-parktronik-2012-rok-gwarancja-w-cenie-vat-1-odpis-100-vat-oferta-2193ga-ID6yiacp.html') ?>" title="Renault Trafic Klima Elektryka Parktronik 2012 Rok Gwarancja w Cenie .  Vat 1 - Odpis -100%Vat .Oferta 2193GA" style="background-image: url('/images_otomotopl/828305359_1_320x240_vat-1-odpis-100vat-oferta-2193ga-luban.jpg')">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
                 <div class="inner">
                   <h3 class="om-title">
-                    <a href="/view/renault-trafic-klima-elektryka-parktronik-2012-rok-gwarancja-w-cenie-vat-1-odpis-100-vat-oferta-2193ga-ID6yiacp.html" title="Renault Trafic Klima Elektryka Parktronik 2012 Rok Gwarancja w Cenie .  Vat 1 - Odpis -100%Vat .Oferta 2193GA">
+                    <a href="<?= $app->createUrl('/view/renault-trafic-klima-elektryka-parktronik-2012-rok-gwarancja-w-cenie-vat-1-odpis-100-vat-oferta-2193ga-ID6yiacp.html') ?>" title="Renault Trafic Klima Elektryka Parktronik 2012 Rok Gwarancja w Cenie .  Vat 1 - Odpis -100%Vat .Oferta 2193GA">
                       <span class="visible-tablet-up">Renault Trafic K...</span>
                       <span class="visible-mobile">Renault Trafic Klima Elektryka Parktronik 2012 Rok Gwarancja w Cenie .  Vat 1 - Odpis -100%Vat .Oferta 2193GA</span>
                     </a>
@@ -508,13 +508,13 @@ $app = Yii::app();
           </div>
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/scania-r-480-topline-6x2-bdf-do-zabudowy-firanka-plandeka-ID6yicsP.html" title="Scania R 480 TOPLINE 6X2 BDF  do zabudowy, firanka, plandeka" style="background-image: url('/images_otomotopl/828325009_1_320x240_do-zabudowy-firanka-plandeka-braniewo_rev002.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/scania-r-480-topline-6x2-bdf-do-zabudowy-firanka-plandeka-ID6yicsP.html') ?>" title="Scania R 480 TOPLINE 6X2 BDF  do zabudowy, firanka, plandeka" style="background-image: url('/images_otomotopl/828325009_1_320x240_do-zabudowy-firanka-plandeka-braniewo_rev002.jpg')">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
                 <div class="inner">
                   <h3 class="om-title">
-                    <a href="/view/scania-r-480-topline-6x2-bdf-do-zabudowy-firanka-plandeka-ID6yicsP.html" title="Scania R 480 TOPLINE 6X2 BDF  do zabudowy, firanka, plandeka">
+                    <a href="<?= $app->createUrl('/view/scania-r-480-topline-6x2-bdf-do-zabudowy-firanka-plandeka-ID6yicsP.html') ?>" title="Scania R 480 TOPLINE 6X2 BDF  do zabudowy, firanka, plandeka">
                       <span class="visible-tablet-up">Scania R 480 TOP...</span>
                       <span class="visible-mobile">Scania R 480 TOPLINE 6X2 BDF  do zabudowy, firanka, plandeka</span>
                     </a>
@@ -528,13 +528,13 @@ $app = Yii::app();
           </div>
           <div class="item-box">
             <div class="item-body">
-              <a class="rel  img-cover" href="/view/ford-transit-warsztat-serwis-mobilny-pogotowie-techniczne-po-oplatach-vat-1-warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-ID6yj4in.html" title="Ford Transit Warsztat Serwis Mobilny Pogotowie techniczne - po Opłatach - Vat-1 .  Warsztaty duży wybór na miejscu. Oferta 4724GA" style="background-image: url('/images_otomotopl/828749029_1_320x240_warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-luban.jpg')">
+              <a class="rel  img-cover" href="<?= $app->createUrl('/view/ford-transit-warsztat-serwis-mobilny-pogotowie-techniczne-po-oplatach-vat-1-warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-ID6yj4in.html') ?>" title="Ford Transit Warsztat Serwis Mobilny Pogotowie techniczne - po Opłatach - Vat-1 .  Warsztaty duży wybór na miejscu. Oferta 4724GA" style="background-image: url('/images_otomotopl/828749029_1_320x240_warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-luban.jpg')">
                 <span class="img-overlay"></span>
               </a>
               <div class="details">
                 <div class="inner">
                   <h3 class="om-title">
-                    <a href="/view/ford-transit-warsztat-serwis-mobilny-pogotowie-techniczne-po-oplatach-vat-1-warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-ID6yj4in.html" title="Ford Transit Warsztat Serwis Mobilny Pogotowie techniczne - po Opłatach - Vat-1 .  Warsztaty duży wybór na miejscu. Oferta 4724GA">
+                    <a href="<?= $app->createUrl('/view/ford-transit-warsztat-serwis-mobilny-pogotowie-techniczne-po-oplatach-vat-1-warsztaty-duzy-wybor-na-miejscu-oferta-4724ga-ID6yj4in.html') ?>" title="Ford Transit Warsztat Serwis Mobilny Pogotowie techniczne - po Opłatach - Vat-1 .  Warsztaty duży wybór na miejscu. Oferta 4724GA">
                       <span class="visible-tablet-up">Ford Transit War...</span>
                       <span class="visible-mobile">Ford Transit Warsztat Serwis Mobilny Pogotowie techniczne - po Opłatach - Vat-1 .  Warsztaty duży wybór na miejscu. Oferta 4724GA</span>
                     </a>

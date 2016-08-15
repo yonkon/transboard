@@ -71,10 +71,10 @@ return array(
       'showScriptName'=>false,
 			'rules'=>array(
         '' => 'site/index',
-        'view/<id:\d+>' => 'advert/view?id=<id>',
-        'view/<alias:\w+>' => 'advert/view?alias=<alias>',
-        'category/<category:\w+>/<model:\w+>' => 'advert/categories?cat=<category>&model=<model>',
-        'category/<category:\w+>' => 'advert/categories?cat=<category>',
+        'view/<id:\d+>' => 'advert/view',
+        'view/<alias:[\w_-]+>' => 'advert/view',
+        'category/<category:\w+>/<model:\w+>' => 'advert/category',
+        'category/<category:\w+>' => 'advert/category',
         'business'=>'site/business',
         'contact'=>'site/contact',
         'login'=>'user/login',
@@ -139,6 +139,8 @@ return array(
 
       # page after logout
       'returnLogoutUrl' => array('/user/login'),
+      'layout'=>'application.views.layouts.rights', // Application layout.
+
     ),
     'rights'=>array(
       'superuserName'=>'admin', // Name of the role with super user privileges.
@@ -153,8 +155,9 @@ return array(
 
       'baseUrl'=>'/rights', // Base URL for Rights. Change if module is nested.
       'layout'=>'rights.views.layouts.main',  // Layout to use for displaying Rights.
-      'appLayout'=>'application.views.layouts.main', // Application layout.
-      'cssFile'=>'rights.css', // Style sheet file to use for Rights.
+      'appLayout'=>'application.views.layouts.rights', // Application layout.
+//      'cssFile'=>'rights.css', // Style sheet file to use for Rights.
+      'cssFile'=>null, // Style sheet file to use for Rights.
       'install'=>false,  // Whether to enable installer.
       'debug'=>true,
       ),

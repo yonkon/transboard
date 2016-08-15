@@ -8,6 +8,9 @@
 */
 class AuthItemController extends RController
 {
+
+  public $layout = '//layouts/rights';
+
 	/**
 	* @property RAuthorizer
 	*/

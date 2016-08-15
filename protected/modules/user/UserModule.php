@@ -59,9 +59,10 @@ class UserModule extends CWebModule
 	public $profileUrl = array("/user/profile");
 	public $returnUrl = array("/panel");
 	public $returnLogoutUrl = array("/user/login");
-	
-	
-	/**
+  public $layout  = 'application.views.layouts.rights'; // Application layout.
+
+
+  /**
 	 * @var int
 	 * @desc Remember Me Time (seconds), defalt = 2592000 (30 days)
 	 */

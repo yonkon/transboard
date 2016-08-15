@@ -9,7 +9,9 @@ class ProfileFieldController extends Controller
 	private $_model;
 	private static $_widgets = array();
 	public $defaultAction = 'admin';
-	public $layout='//layouts/column2';
+//	public $layout='//layouts/column2';
+  public $layout  = 'application.views.layouts.rights'; // Application layout.
+
 
 	/**
 	 * @return array action filters

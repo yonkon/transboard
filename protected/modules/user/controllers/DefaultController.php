@@ -2,8 +2,9 @@
 
 class DefaultController extends Controller
 {
-	
-	/**
+  public $layout  = 'application.views.layouts.rights'; // Application layout.
+
+  /**
 	 * Lists all models.
 	 */
 	public function actionIndex()
