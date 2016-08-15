@@ -11,7 +11,7 @@
  *
  * The followings are the available model relations:
  * @property Advert[] $tblAdverts
- * @property CategoryParam $param0
+ * @property Param $param0
  */
 class ParamValue extends CActiveRecord
 {
@@ -48,7 +48,7 @@ class ParamValue extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'tblAdverts' => array(self::MANY_MANY, 'Advert', '{{advert_param}}(id_value, id_advert)'),
-			'param0' => array(self::BELONGS_TO, 'CategoryParam', 'param'),
+			'param0' => array(self::BELONGS_TO, 'Param', 'param'),
 		);
 	}
 

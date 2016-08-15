@@ -1,21 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "{{category_param}}".
+ * This is the model class for table "{{param}}".
  *
- * The followings are the available columns in table '{{category_param}}':
- * @property integer $id_category
- * @property integer $id_param
+ * The followings are the available columns in table '{{param}}':
+ * @property integer $id
+ * @property string $name
  * @property integer $enabled
+ * @property string $compare
+ *
+ * The followings are the available model relations:
+ * @property AdvertCategory[] $tblAdvertCategories
+ * @property ParamValue[] $paramValues
  */
-class CategoryParam extends CActiveRecord
+class Param extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{category_param}}';
+		return '{{param}}';
 	}
 
 	/**
@@ -26,11 +31,13 @@ class CategoryParam extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_category, id_param', 'required'),
-			array('id_category, id_param, enabled', 'numerical', 'integerOnly'=>true),
+			array('name', 'required'),
+			array('enabled', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>127),
+			array('compare', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_category, id_param, enabled', 'safe', 'on'=>'search'),
+			array('id, name, enabled, compare', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -42,6 +49,8 @@ class CategoryParam extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'tblAdvertCategories' => array(self::MANY_MANY, 'AdvertCategory', '{{category_param}}(id_param, id_category)'),
+			'paramValues' => array(self::HAS_MANY, 'ParamValue', 'param'),
 		);
 	}
 
@@ -51,9 +60,10 @@ class CategoryParam extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_category' => 'Id Category',
-			'id_param' => 'Id Param',
+			'id' => 'ID',
+			'name' => 'Name',
 			'enabled' => 'Enabled',
+			'compare' => 'Compare',
 		);
 	}
 
@@ -75,9 +85,10 @@ class CategoryParam extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_category',$this->id_category);
-		$criteria->compare('id_param',$this->id_param);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('name',$this->name,true);
 		$criteria->compare('enabled',$this->enabled);
+		$criteria->compare('compare',$this->compare,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -88,7 +99,7 @@ class CategoryParam extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return CategoryParam the static model class
+	 * @return Param the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
