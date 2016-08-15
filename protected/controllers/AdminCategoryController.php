@@ -1,6 +1,6 @@
 <?php
 
-class AdminCategoryController extends Controller
+class AdminCategoryController extends AController
 {
 	public function actionAdd()
 	{

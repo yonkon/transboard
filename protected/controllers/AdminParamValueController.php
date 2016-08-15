@@ -1,6 +1,6 @@
 <?php
 
-class AdminParamValueController extends Controller
+class AdminParamValueController extends AController
 {
 	public function actionAdd()
 	{

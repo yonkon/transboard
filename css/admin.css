@@ -1,0 +1,63 @@
+.admin a.menu-link {
+  border-radius: 2px;
+  border: 1px solid cadetblue;
+  padding: 10px;
+  display: inline-block;
+  color: #444;
+  font-weight: bold;
+  text-shadow: 1px 1px darkgray;
+  text-decoration: none;
+  background: #eef0e0;
+}
+
+.admin nav.menu-item {
+  display: inline-block;
+  margin: 0 2px;
+  max-height: 40px;
+}
+
+.admin header {
+  padding: 2px 0 0 2px;
+  position: fixed;
+  height: 80px;
+  margin: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(239,239,239,0.7);
+}
+
+.admin #page {
+  margin-top: 80px;
+}
+
+
+.admin .container {
+  width: 1200px;
+}
+
+.admin .submenu .menu-item {
+  margin-left: 0;
+}
+.admin .submenu .menu-link {
+  background-color: #e0eee0;
+}
+
+.admin .menu-link:hover {
+  background-color: #f0fff0;
+}
+
+
+.admin .submenu {
+  display: none;
+  width: 100%;
+  position: absolute;
+  margin-top: -1px;
+  max-height: 40px;
+}
+
+.admin .menu-item:hover .submenu,
+.admin .submenu:hover {
+  display: block;
+}
+

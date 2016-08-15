@@ -1,6 +1,6 @@
 <?php
 
-class AdminAdvertController extends Controller
+class AdminAdvertController extends AController
 {
 	public function actionAdd()
 	{

@@ -1,7 +1,9 @@
 <?php
 
-class AdminSeoController extends Controller
+class AdminSeoController extends AController
 {
+  public $defaultAction = 'index';
+
 	public function actionIndex()
 	{
 		$this->render('index');

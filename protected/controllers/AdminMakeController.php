@@ -1,6 +1,6 @@
 <?php
 
-class AdminMakeController extends Controller
+class AdminMakeController extends AController
 {
 	public function actionAdd()
 	{
