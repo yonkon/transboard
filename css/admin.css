@@ -61,3 +61,11 @@
   display: block;
 }
 
+.advert-edit .row {
+  width: 33%;
+  margin-left: 2%;
+  float: left;
+}
+.advert-edit .row:nth-of-type(3n + 1  ) {
+  clear: left;
+}

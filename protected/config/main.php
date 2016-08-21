@@ -80,6 +80,7 @@ return array(
         'login'=>'user/login',
         'logout'=>'user/logout',
         'profile'=>'user/profile',
+        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
         '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 //				'<controller:\w+>'=>'<controller>/index',
