@@ -14,7 +14,27 @@ class AdminMakeController extends AController
 
 	public function actionEdit()
 	{
-		$this->render('edit');
+    $model=new AdvertMake;
+
+    // uncomment the following code to enable ajax-based validation
+    /*
+    if(isset($_POST['ajax']) && $_POST['ajax']==='advert-make-edit-form')
+    {
+        echo CActiveForm::validate($model);
+        Yii::app()->end();
+    }
+    */
+
+    if(isset($_POST['AdvertMake']))
+    {
+      $model->attributes=$_POST['AdvertMake'];
+      if($model->validate())
+      {
+        // form inputs are valid, do something here
+        return;
+      }
+    }
+    $this->render('edit',array('model'=>$model));
 	}
 
 	public function actionList()

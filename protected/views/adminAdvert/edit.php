@@ -1,12 +1,14 @@
 <?php
-/* @var $this AdvertController */
-/* @var $model Advert */
-/* @var $form CActiveForm */
+/** @var $this adminAdvertController
+ * @var $model Advert
+ * @var $form SActiveForm
+ * @var User $owner
+ */
 ?>
 
 <div class="form advert-edit" >
 
-  <?php $form=$this->beginWidget('CActiveForm', array(
+  <?php $form=$this->beginWidget('application.extensions.widgets.SActiveForm', array(
     'id'=>'advert-AdvertEdit-form',
     // Please note: When you enable ajax validation, make sure the corresponding
     // controller action is handling ajax validation correctly.
@@ -18,29 +20,24 @@
   <p class="note">Fields with <span class="required">*</span> are required.</p>
 
   <?php echo $form->errorSummary($model); ?>
-
-  <div class="row">
-    <?php echo $form->labelEx($model,'created'); ?>
-    <?php echo $form->dateField($model,'created'); ?>
-    <?php echo $form->error($model,'created'); ?>
-  </div>
+  <div>
+<!--  <div class="row">-->
+<?php //echo $form->labelEx($model,'created'); ?>
+<?php //echo $form->dateField($model,'created'); ?>
+<?php //echo $form->error($model,'created'); ?>
+<!--  </div>-->
 
   <div class="row">
     <?php echo $form->labelEx($model,'name'); ?>
-    <?php echo $form->textField($model,'name'); ?>
+    <?php echo $form->textArea($model,'name'); ?>
     <?php echo $form->error($model,'name'); ?>
   </div>
 
   <div class="row">
     <?php echo $form->labelEx($model,'user'); ?>
     <?php
-     echo $form->hiddenField($model,'user', array('id' => 'user'));
-    ?>
-    <input type="text" id="user_query">
-    <select class="hidden" id="user_select"></select>
-    <?php echo $form->error($model,'user'); ?>
-    <?
-    ?>
+    echo $form->autoComboboxField($model, 'user', 'adminAdvert/users', $owner->username . ' (' . $owner->email . ')' );
+    echo $form->error($model,'user'); ?>
   </div>
 
   <div class="row">
@@ -58,7 +55,8 @@
   <div class="row">
     <?php echo $form->labelEx($model,'status'); ?>
     <?php /** @var array $advertStatuses */
-    echo $form->dropDownList($model,'status', $advertStatuses); ?>
+    /** @var array $advertStatusesOptions */
+    echo $form->dropDownList($model,'status', $advertStatuses, array('options' => $advertStatusesOptions)); ?>
     <?php echo $form->error($model,'status'); ?>
   </div>
 
@@ -133,7 +131,7 @@
     <?php echo $form->textField($model,'link'); ?>
     <?php echo $form->error($model,'link'); ?>
   </div>
-
+  </div>
 
   <div class="row buttons">
     <?php echo CHtml::submitButton('Submit'); ?>

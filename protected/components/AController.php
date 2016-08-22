@@ -22,5 +22,23 @@ class AController extends Controller
 	 */
 	public $breadcrumbs=array();
 
+  public function autocomplete($class, $fields, $query, $value_attr, $text_attr) {
+    $cond = '';
+    foreach ($fields as $f) {
+      $cond[] = $f . ' LIKE :query ';
+    }
+    $cond = join(' OR ', $cond);
+    $models = $class::model()->findAllByAttributes(
+      array(),
+      $cond,
+      array(':query' => '%'.trim($query).'%')
+    );
+    $htmlopt = array();
+    $data = CHtml::listData($models, $value_attr, $text_attr);
+    $result = CHtml::listOptions(
+      array(), $data , $htmlopt
+    );
+    return $result;
+  }
 
 }

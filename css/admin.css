@@ -31,7 +31,6 @@
   margin-top: 80px;
 }
 
-
 .admin .container {
   width: 1200px;
 }
@@ -68,4 +67,17 @@
 }
 .advert-edit .row:nth-of-type(3n + 1  ) {
   clear: left;
+}
+
+.clr:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.list .row {
+  text-align: center;
 }

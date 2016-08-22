@@ -25,7 +25,7 @@
  * @property string $link
  *
  * The followings are the available model relations:
- * @property Users $user0
+ * @property User $user0
  * @property AdvertStatus $status0
  * @property AdvertCategory $category0
  * @property AdvertMake $make0
@@ -69,7 +69,7 @@ class Advert extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user0' => array(self::BELONGS_TO, 'Users', 'user'),
+			'user0' => array(self::BELONGS_TO, 'User', 'user'),
 			'status0' => array(self::BELONGS_TO, 'AdvertStatus', 'status'),
 			'category0' => array(self::BELONGS_TO, 'AdvertCategory', 'category'),
 			'make0' => array(self::BELONGS_TO, 'AdvertMake', 'make'),
@@ -160,4 +160,19 @@ class Advert extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+  public function beforeSave()
+  {
+    $this->created = date('Y-m-d H:i:s', strtotime($this->created));
+    return parent::beforeSave();
+  }
+
+  public function afterFind()
+  {
+    $return = parent::afterFind();
+    $this->created = date('Y-m-d', strtotime($this->created));
+    return $return;
+  }
+
+
 }

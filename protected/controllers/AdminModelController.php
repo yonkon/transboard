@@ -12,10 +12,30 @@ class AdminModelController extends AController
 		$this->render('delete');
 	}
 
-	public function actionEdit()
-	{
-		$this->render('edit');
-	}
+  public function actionEdit()
+  {
+    $model=new AdvertModel;
+
+    // uncomment the following code to enable ajax-based validation
+    /*
+    if(isset($_POST['ajax']) && $_POST['ajax']==='advert-model-edit-form')
+    {
+        echo CActiveForm::validate($model);
+        Yii::app()->end();
+    }
+    */
+
+    if(isset($_POST['AdvertModel']))
+    {
+      $model->attributes=$_POST['AdvertModel'];
+      if($model->validate())
+      {
+        // form inputs are valid, do something here
+        return;
+      }
+    }
+    $this->render('edit',array('model'=>$model));
+  }
 
 	public function actionList()
 	{

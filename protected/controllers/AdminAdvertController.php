@@ -23,7 +23,6 @@ class AdminAdvertController extends AController
     if(empty($model)) {
       throw new CException(__('Объявление не найдено', 'error'));
     }
-    $app->clientScript->registerCoreScript('jquery');
 //    $app->clientScript->registerScript('autocomplete','   jQuery("#' . CHtml::activeId($model, "user") . '").autocomplete({"showAnim":"fold","source":"/user/ajaxGetUserList"});         ');
 
     // uncomment the following code to enable ajax-based validation
@@ -44,44 +43,56 @@ class AdminAdvertController extends AController
         return;
       }
     }
-    $app->clientScript->registerScript('userAutocomplete',
-      '$("#user_query").change(function(){
-      var $this = $(this);
-      var val = $this.val();
-      $.ajax({
-        url : "'. $app->createUrl('adminAdvert/users').'",
-        data : {
-          username : val
-        },
-        success : function(data){
-          $("#user_select").html(data);
-          $("#user_select").show();
-          $this.hide();
-          $("#user_select").unbind("change").change(function(){
-            var $select = $(this);
-            $("#user").val($select.val());
-            $("#user_query").val($select.find("option:selected").text());
-            $select.hide();
-            $("#user_query").show();
-          });
-        }
-      });
-    });'
-      ,
-      CClientScript::POS_END);
+
+//    $app->clientScript->registerScript('userAutocomplete',
+//      '
+//      selectAutocomplete("#user_query", "'. $app->createUrl('adminAdvert/users').'", "query", "#user_select", "#user");
+//      '
+//      ,
+//      CClientScript::POS_END);
     $allStatuses = AdvertStatus::model()->findAll();
     $advertStatuses = array();
     foreach($allStatuses as $as) {
       $arr = $as->getAttributes();
-      $arr['selected'] = ($model->status == $as->id);
-      $advertStatuses[$as['id']] = $arr ;
+      $advertStatuses[$as['id']] = $arr['name'] ;
     }
-    $this->render('edit',array('model'=>$model, 'advertStatuses' => $advertStatuses));
+    $advertStatusesOptions = array($model->status => array('selected' => true));
+
+    $allMakes = AdvertStatus::model()->findAll();
+    $makes = array();
+    foreach($allMakes as $as) {
+      $arr = $as->getAttributes();
+      $makes[$as['id']] = $arr['name'] ;
+    }
+    $makesOptions = array($model->status => array('selected' => true));
+
+
+    $allModels = AdvertStatus::model()->findAll();
+    $models = array();
+    foreach($allModels as $as) {
+      $arr = $as->getAttributes();
+      $models[$as['id']] = $arr['name'] ;
+    }
+    $modelsOptions = array($model->status => array('selected' => true));
+
+    $this->render('edit',array(
+      'model'=>$model,
+      'advertStatuses' => $advertStatuses,
+//      'advertStatusesOptions' => $advertStatusesOptions,
+      'makes' => $makes,
+//      'makesOptions' => $makesOptions,
+      'models' => $models,
+//      'modelsOptions' => $modelsOptions,
+      ));
 	}
 
 	public function actionList()
 	{
-		$this->render('list');
+    $app = Yii::app();
+    $app->clientScript->registerScript('tsort','   $(".table.list table").tablesorter(); ', CClientScript::POS_END);
+    $items = Advert::model()->findAll();
+
+		$this->render('list', array('items' => $items));
 	}
 
 	public function actionNew()
@@ -90,25 +101,24 @@ class AdminAdvertController extends AController
 	}
 
   public function actionUsers() {
-    $users = User::model()->findAllByAttributes(
-      array(),
-      ' username LIKE :username ',
-      array(':username' => '%'.$_REQUEST['username'].'%')
-    );
-//    $result = '';
-//    foreach($users as $u) {
-//    }
-    $htmlopt = array();
-    $data = CHtml::listData($users, 'id', 'username');
-    $result = CHtml::listOptions(
-      array(), $data , $htmlopt
-    );
-
+//    $users = User::model()->findAllByAttributes(
+//      array(),
+//      ' username LIKE :query OR email LIKE :query',
+//      array(':query' => '%'.trim($_REQUEST['query']).'%')
+//    );
+//    $htmlopt = array();
+//    $data = CHtml::listData($users, 'id', 'username');
+//    $result = CHtml::listOptions(
+//      array(), $data , $htmlopt
+//    );
+    $result = $this->autocomplete('User', array('username', 'email'), $_REQUEST['query'], 'id', 'username');
     echo $result;
     die();
   }
 
-	public function actionPromotion()
+
+
+public function actionPromotion()
 	{
 		$this->render('promotion');
 	}
@@ -137,4 +147,17 @@ class AdminAdvertController extends AController
       ),
     );
   }*/
+
+  public function beforeAction($action)
+  {
+    $app = Yii::app();
+    /** @var CWebApplication $app */
+    $app->clientScript->registerCoreScript('jquery');
+
+    $app->clientScript->registerScriptFile('/js/adminAdvert.js', CClientScript::POS_BEGIN);
+    $app->clientScript->registerScriptFile('/js/tablesorter/jquery.tablesorter.js', CClientScript::POS_BEGIN);
+    $app->clientScript->registerCssFile('/js/tablesorter/themes/blue/style.css');
+    return parent::beforeAction($action);
+  }
+
 }
