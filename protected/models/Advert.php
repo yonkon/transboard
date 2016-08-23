@@ -23,6 +23,7 @@
  * @property string $phone
  * @property integer $published_to
  * @property string $link
+ * @property AdvertPhoto[] $advertPhotos
  *
  * The followings are the available model relations:
  * @property User $user0
@@ -76,6 +77,7 @@ class Advert extends CActiveRecord
 			'model0' => array(self::BELONGS_TO, 'AdvertModel', 'model'),
 			'currency0' => array(self::BELONGS_TO, 'Currency', 'currency'),
 			'tblParamValues' => array(self::MANY_MANY, 'ParamValue', '{{advert_param}}(id_advert, id_value)'),
+      'advertPhotos' => array(self::HAS_MANY, 'AdvertPhoto', 'id_advert'),
 		);
 	}
 
@@ -172,6 +174,29 @@ class Advert extends CActiveRecord
     $return = parent::afterFind();
     $this->created = date('Y-m-d', strtotime($this->created));
     return $return;
+  }
+
+  public function makeUrl($action = 'edit'){
+    /** @var CWebApplication $app */
+    $app = Yii::app();
+    switch($action) {
+      case 'edit':
+        $url =  $app->createUrl('adminAdvert/edit/'.$this->id);
+        break;
+      default :
+        $url = $app->createUrl('adminAdvert/edit/'.$this->id);
+    }
+    return $url;
+  }
+
+  public function makeAdminThumb($href = null ) {
+    if(empty($this->advertPhotos)) {
+      return '';
+    }
+    if(empty($href)) {
+      $href = $this->makeUrl('edit');
+    }
+    return $this->advertPhotos[0]->makeTag($href, 'thumb');
   }
 
 

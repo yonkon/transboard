@@ -29,7 +29,7 @@ $this->breadcrumbs=array(
       <tr>
         <td><?= $ad->id ?></td>
         <td><?= $ad->name ?></td>
-        <td><?= __('Фото') ?></td>
+        <td><?= $ad->makeAdminThumb() ?></td>
         <td><?= $ad->category0->name ?></td>
         <td><?= $ad->user0->email ?></td>
         <td><?= $ad->status0->name ?></td>

@@ -50,7 +50,7 @@ class AdminAdvertController extends AController
 //      '
 //      ,
 //      CClientScript::POS_END);
-    $allStatuses = AdvertStatus::model()->findAll();
+    $allStatuses = AdvertStatus::model()->with('advertPhotos')->findAll();
     $advertStatuses = array();
     foreach($allStatuses as $as) {
       $arr = $as->getAttributes();
@@ -90,7 +90,7 @@ class AdminAdvertController extends AController
 	{
     $app = Yii::app();
     $app->clientScript->registerScript('tsort','   $(".table.list table").tablesorter(); ', CClientScript::POS_END);
-    $items = Advert::model()->findAll();
+    $items = Advert::model()->with('advertPhotos')->findAll();
 
 		$this->render('list', array('items' => $items));
 	}
