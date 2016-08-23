@@ -10,6 +10,7 @@
  * @property string $title
  * @property string $url
  * @property string $path
+ * @property CUploadedFile $image
  * @property integer $position
  *
  * The followings are the available model relations:
@@ -17,6 +18,7 @@
  */
 class AdvertPhoto extends CActiveRecord
 {
+  public $image;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -33,6 +35,9 @@ class AdvertPhoto extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+      //устанавливаем правила для файла, позволяющие загружать
+      // только картинки!
+      array('image', 'file', 'types'=>'jpg, gif, png'),
 			array('id_advert, url, path', 'required'),
 			array('id_advert, enabled, position', 'numerical', 'integerOnly'=>true),
 			array('title', 'safe'),
@@ -122,6 +127,41 @@ class AdvertPhoto extends CActiveRecord
       $tag = "<a href='{$href}'>{$tag}</a>";
     }
     return $tag;
+  }
+
+  /**
+   * @param CUploadedFile $image
+   */
+  public function fromUpload($image, $attributes)
+  {
+    $app = Yii::app();
+    if(empty($image)) {
+      $this->addError('image',__("Файл не загружен"));
+    }
+    if(empty($attributes['id_advert'])){
+      $this->addError('id_advert',__("Не указано объявление"));
+    }
+    if($this->hasErrors()) {
+      return;
+    }
+    $this->image = $image;
+    if(!$this->validate(array('image'), false)) {
+      return;
+    }
+    $advert = Advert::model()->findByPk($attributes['id_advert']);
+    $this->title = $advert->name;
+    $aid = $advert->id;
+    $dir = $app->params['photos']['upload_path'] . "{$aid}/";
+    $index = 1;
+    if(is_dir($dir)) {
+      $photos = scandir($dir);
+    } else {
+      mkdir($dir, 0777, true);
+    }
+    $path = $dir . "{$index}". $image->getExtensionName();
+    $this->path = $path;
+    $this->image->saveAs($path);
+
   }
 
 }
