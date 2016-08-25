@@ -27,7 +27,8 @@ return array(
   ),
 	// the copyright information displayed in the footer section
   'photos' => array(
-    'upload_path' => $_SERVER['DOCUMENT_ROOT'] . '/images/ad/'
+    'upload_path' => $_SERVER['DOCUMENT_ROOT'] . '/images/ad/',
+    'upload_url' => '/images/ad/',
   ),
 	'copyrightInfo'=>'Copyright &copy; 2016 by Vladimir Sudarkov.',
 

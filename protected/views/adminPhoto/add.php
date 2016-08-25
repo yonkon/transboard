@@ -14,6 +14,8 @@ $this->breadcrumbs=array(
 <?php
 echo CHtml::form('','post',array('enctype'=>'multipart/form-data'));
 echo CHtml::activeFileField($model, 'image');
+echo CHtml::error($model, 'image');
 echo CHtml::activeTextField($model, 'id_advert');
+echo CHtml::error($model, 'id_advert');
 echo CHtml::submitButton(__("загрузить фото"));
 echo CHtml::endForm(); ?>

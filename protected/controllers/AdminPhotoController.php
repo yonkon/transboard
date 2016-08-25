@@ -10,13 +10,14 @@ class AdminPhotoController extends Controller
     $image = CUploadedFile::getInstance($model,'image');;
     if($image){
       $model->fromUpload($image, $_POST['AdvertPhoto']);
-      $model->image = $image;
-      if($model->save()){
-
-        
-        // перенаправляем на страницу, где выводим сообщение об
-        // успешной загрузке
+      if(!$model->hasErrors()) {
+        if($model->save()){
+          $app->user->setFlash('success', 'Фото успешно загружено');
+          // перенаправляем на страницу, где выводим сообщение об
+          // успешной загрузке
+        }
       }
+
     }
 		$this->render('add', array('model' => $model));
 	}

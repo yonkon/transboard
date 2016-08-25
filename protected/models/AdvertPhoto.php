@@ -149,19 +149,39 @@ class AdvertPhoto extends CActiveRecord
       return;
     }
     $advert = Advert::model()->findByPk($attributes['id_advert']);
+    if(empty($advert)) {
+      $this->addError('id_advert',__("Не найдено объявление"));
+      return;
+    }
     $this->title = $advert->name;
     $aid = $advert->id;
+    $this->id_advert = $aid;
     $dir = $app->params['photos']['upload_path'] . "{$aid}/";
+    $url = $app->params['photos']['upload_url'] . "{$aid}/";
     $index = 1;
     if(is_dir($dir)) {
+      $pre_index = 0;
       $photos = scandir($dir);
+      foreach($photos as $f) {
+        if($f == '.' ||$f == '..') {
+          continue;
+        }
+        $pre_index = substr($f,0, strrpos($f,'.'));
+        $pre_index = intval($pre_index)+1;
+        if($index < $pre_index) {
+          $index = $pre_index;
+        }
+      }
+
     } else {
       mkdir($dir, 0777, true);
     }
-    $path = $dir . "{$index}". $image->getExtensionName();
+    $fname = "{$index}.". $image->getExtensionName();
+    $path = $dir . $fname;
+    $url = $url . $fname;
     $this->path = $path;
+    $this->url = $url;
     $this->image->saveAs($path);
-
   }
 
 }
