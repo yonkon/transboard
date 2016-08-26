@@ -19,6 +19,23 @@
 class AdvertPhoto extends CActiveRecord
 {
   public $image;
+   static $_upload_path = '/images/ad/';
+   static $_thumb_path = '/images/ad/thumbs/';
+   static $_upload_url = '/images/ad/';
+   static $_thumb_url = '/images/ad/thumbs/';
+
+  public static function _getOriginal_path() {
+    return $_SERVER['DOCUMENT_ROOT'] . self::$_upload_path;
+  }
+  public static function _getThumb_path() {
+    return $_SERVER['DOCUMENT_ROOT'] . self::$_thumb_path;
+  }
+  public static function _getThumb_url() {
+    return  self::$_thumb_url ;
+  }
+  public static function _getOriginal_url() {
+    return  self::$_upload_url;
+  }
 	/**
 	 * @return string the associated database table name
 	 */
@@ -117,13 +134,22 @@ class AdvertPhoto extends CActiveRecord
 		return parent::model($className);
 	}
 
-  public function makeTag($href = null, $class = null, $id = null, $title=null ) {
+  public function makeTag($type = 'original', $href = null, $class = null, $id = null, $title=null ) {
     $class = if_empty($class, '', " class=\"$class\"");
     $id = if_empty($id, '', " id=\"$id\"");
     $title = if_empty($title, '', " title=\"$title\" alt=\"$title\" ");
-    $tag = "<img {$id} {$class} {$title}>";
+    $src = $this->url;
+    switch($type) {
+      case 'orig':
+        $src = $this->getOriginalUrl();
+        break;
+      case 'thumb' :
+        $src = $this->getThumbUrl();
+        break;
+    }
+    $tag = "<img src=\"{$src}\" {$id} {$class} {$title}>";
     if(!empty($href)) {
-      $href = urlencode(trim($href));
+      $href = trim($href);
       $tag = "<a href='{$href}'>{$tag}</a>";
     }
     return $tag;
@@ -156,8 +182,10 @@ class AdvertPhoto extends CActiveRecord
     $this->title = $advert->name;
     $aid = $advert->id;
     $this->id_advert = $aid;
-    $dir = $app->params['photos']['upload_path'] . "{$aid}/";
-    $url = $app->params['photos']['upload_url'] . "{$aid}/";
+    $this->path = "{$aid}/";
+    $dir = $this->_getOriginal_path() . $this->path;
+    $dir_t = $this->_getThumb_path() . $this->path;
+    $url  = "{$aid}/";
     $index = 1;
     if(is_dir($dir)) {
       $pre_index = 0;
@@ -176,12 +204,36 @@ class AdvertPhoto extends CActiveRecord
     } else {
       mkdir($dir, 0777, true);
     }
+    if(!is_dir($dir_t)) {
+      mkdir($dir_t, 0777, true);
+    }
     $fname = "{$index}.". $image->getExtensionName();
     $path = $dir . $fname;
+    $path_t = $dir_t . $fname;
     $url = $url . $fname;
-    $this->path = $path;
+    $this->path .= $fname;
     $this->url = $url;
     $this->image->saveAs($path);
+    $thumb = new CImageHandler;
+    $thumb->load($path);
+    $thumb->adaptiveThumb($app->params['photos']['thumbs']['width'], $app->params['photos']['thumbs']['height']);
+    $thumb->save($path_t);
+  }
+
+  public function getOriginalPath() {
+    return self::_getOriginal_path() . $this->path;
+  }
+
+  public function getThumbPath() {
+    return self::_getThumb_path() . $this->path;
+  }
+
+  public function getOriginalUrl() {
+    return self::_getOriginal_url() . $this->url;
+  }
+
+  public function getThumbUrl() {
+    return self::_getThumb_url() . $this->url;
   }
 
 }

@@ -27,6 +27,10 @@ return array(
   ),
 	// the copyright information displayed in the footer section
   'photos' => array(
+    'thumbs' => array(
+      'width' => 140,
+      'height' => 90,
+    ),
     'upload_path' => $_SERVER['DOCUMENT_ROOT'] . '/images/ad/',
     'upload_url' => '/images/ad/',
   ),

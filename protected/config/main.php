@@ -20,6 +20,7 @@ return array(
     'application.modules.user.components.*',
     'application.modules.rights.*',
     'application.modules.rights.components.*',
+    'application.extensions.*',
 	),
 
 	'defaultController'=>'site',

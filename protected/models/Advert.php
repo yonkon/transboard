@@ -189,14 +189,19 @@ class Advert extends CActiveRecord
     return $url;
   }
 
-  public function makeAdminThumb($href = null ) {
+  /**
+   * @param string $type orig|thumb
+   * @param null $href if need to make <a> tag
+   * @return string
+   */
+  public function makeAdminThumb($href = null, $type = 'thumb' ) {
     if(empty($this->advertPhotos)) {
       return '';
     }
     if(empty($href)) {
       $href = $this->makeUrl('edit');
     }
-    return $this->advertPhotos[0]->makeTag($href, 'thumb');
+    return $this->advertPhotos[0]->makeTag($type, $href, 'thumb');
   }
 
 
