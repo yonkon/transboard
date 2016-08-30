@@ -62,13 +62,24 @@
 
   <div class="row">
     <?php echo $form->labelEx($model,'category'); ?>
-    <?php echo $form->textField($model,'category'); ?>
+    <?php echo $form->hiddenField($model,'category'); ?>
+    <?php echo $form->textField($model->category0,'name'); ?>
     <?php echo $form->error($model,'category'); ?>
   </div>
 
   <div class="row">
     <?php echo $form->labelEx($model,'make'); ?>
-    <?php echo $form->textField($model,'make'); ?>
+    <?php echo $form->autocompletePopupField(
+      $model,
+      'make',
+      'adminAdvert/makes',
+      null,
+      empty($model->make0)?'':$model->make0->name,
+      'dataMake',
+      'successMake',
+      'errorMake'
+      ); ?>
+<!--    --><?php //echo $form->textField($model->make0,'name'); ?>
     <?php echo $form->error($model,'make'); ?>
   </div>
 
@@ -140,3 +151,11 @@
   <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<div id="autocomplete_popup">
+  <div class="autocomplete_window">
+    <span id="autocomplete_close"></span>
+    <div class="autocomplete_content">
+
+    </div>
+  </div>
+</div>

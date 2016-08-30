@@ -19,7 +19,7 @@ class AdminAdvertController extends AController
      * @var $model Advert
      */
 
-    $model= Advert::model()->findByPk($id);
+    $model= Advert::model()->with('user0')->with('status0')->with('category0')->with('make0')->with('model0')->findByPk($id);
     if(empty($model)) {
       throw new CException(__('Объявление не найдено', 'error'));
     }
@@ -50,7 +50,7 @@ class AdminAdvertController extends AController
 //      '
 //      ,
 //      CClientScript::POS_END);
-    $allStatuses = AdvertStatus::model()->with('advertPhotos')->findAll();
+    $allStatuses = AdvertStatus::model()->findAll();
     $advertStatuses = array();
     foreach($allStatuses as $as) {
       $arr = $as->getAttributes();
@@ -58,23 +58,24 @@ class AdminAdvertController extends AController
     }
     $advertStatusesOptions = array($model->status => array('selected' => true));
 
-    $allMakes = AdvertStatus::model()->findAll();
+    $allMakes = AdvertMake::model()->findAll();
     $makes = array();
     foreach($allMakes as $as) {
       $arr = $as->getAttributes();
       $makes[$as['id']] = $arr['name'] ;
     }
-    $makesOptions = array($model->status => array('selected' => true));
+    $makesOptions = array($model->make => array('selected' => true));
 
 
-    $allModels = AdvertStatus::model()->findAll();
+    $allModels = AdvertModel::model()->findAll();
     $models = array();
     foreach($allModels as $as) {
       $arr = $as->getAttributes();
       $models[$as['id']] = $arr['name'] ;
     }
-    $modelsOptions = array($model->status => array('selected' => true));
+    $modelsOptions = array($model->model => array('selected' => true));
 
+    $owner = $model->user0;
     $this->render('edit',array(
       'model'=>$model,
       'advertStatuses' => $advertStatuses,
@@ -82,6 +83,7 @@ class AdminAdvertController extends AController
       'makes' => $makes,
 //      'makesOptions' => $makesOptions,
       'models' => $models,
+      'owner' => $owner,
 //      'modelsOptions' => $modelsOptions,
       ));
 	}
