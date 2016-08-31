@@ -118,6 +118,12 @@ class AdminAdvertController extends AController
     die();
   }
 
+  public function actionMakes() {
+    $query = $_REQUEST['query'];
+    $category = $_REQUEST['category'];
+    $makes = AdvertMake::model()->find(' name LIKE :name', array(':name' => "%{$query}%"));
+    $this->renderPartial('partials/makes', array('makes' => $makes));
+  }
 
 
 public function actionPromotion()

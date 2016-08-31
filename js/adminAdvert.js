@@ -127,7 +127,9 @@ $(document).ready(function(){
     });
 });
 
-selectAutocompletePopup.dataMake = function($input){};
+selectAutocompletePopup.dataMake = function($input){ return {
+    category : $('#Advert_category').val()
+};};
 selectAutocompletePopup.errorMake = function($input, data){
     console.dir(data.errorMessage);
 };
