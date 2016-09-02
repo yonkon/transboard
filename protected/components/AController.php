@@ -5,6 +5,8 @@
  */
 class AController extends Controller
 {
+  const STATUS_ERROR = 'error';
+  const STATUS_OK = 'OK';
 	/**
 	 * @var string the default layout for the controller view. Defaults to 'column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -39,6 +41,18 @@ class AController extends Controller
       array(), $data , $htmlopt
     );
     return $result;
+  }
+
+  public static function jsonAnswer($data = null, $status = self::STATUS_OK, $message = '', $print = true){
+    $json =  json_encode(array(
+      'status' => $status,
+      'msg' => $message,
+      'data' => $data
+    ));
+    if($print) {
+      echo $json;
+    }
+    return $json;
   }
 
 }

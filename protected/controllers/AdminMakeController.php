@@ -4,7 +4,20 @@ class AdminMakeController extends AController
 {
 	public function actionAdd()
 	{
-		$this->render('add');
+    $make = new AdvertMake();
+    $make->name = $_REQUEST['name'];
+    $make->description = $_REQUEST['description'];
+    $status = $make->save();
+    if(empty($_REQUEST['ajax'])) {
+      $this->render('add', array('make' => $make));
+    } else {
+      if($status) {
+        self::jsonAnswer(array('id' => $make->id));
+      } else {
+        self::jsonAnswer(null, self::STATUS_ERROR, CHtml::errorSummary($make));
+      }
+      die();
+    }
 	}
 
 	public function actionDelete()

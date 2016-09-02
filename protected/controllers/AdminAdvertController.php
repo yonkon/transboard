@@ -121,7 +121,7 @@ class AdminAdvertController extends AController
   public function actionMakes() {
     $query = $_REQUEST['query'];
     $category = $_REQUEST['category'];
-    $makes = AdvertMake::model()->find(' name LIKE :name', array(':name' => "%{$query}%"));
+    $makes = AdvertMake::model()->findAll(' name LIKE :name', array(':name' => "%{$query}%"));
     $this->renderPartial('partials/makes', array('makes' => $makes));
   }
 

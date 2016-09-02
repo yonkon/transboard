@@ -38,6 +38,18 @@ function selectAutocomplete (field, url, param, select,  input ) {
 
 function selectAutocompletePopup(field_selector, controller_url, popup_selector, input_selector, cb_data, cb_success, cb_error){
     var $field = $(field_selector);
+    $field.dblclick(function(e){
+            var $this = $(this);
+            selectAutocompleteHandler($this, e, field_selector, controller_url, popup_selector, input_selector, cb_data, cb_success, cb_error);
+        });
+        $field.change(function(e){
+            var $this = $(this);
+            selectAutocompleteHandler($this, e, field_selector, controller_url, popup_selector, input_selector, cb_data, cb_success, cb_error);
+        });
+}
+
+function selectAutocompleteHandler($this, e, field_selector, controller_url, popup_selector, input_selector, cb_data, cb_success, cb_error) {
+    var $field = $(field_selector);
     var $popup = $(popup_selector);
     if(typeof input_selector == 'undefined' || !input_selector) {
         input_selector = field_selector;
@@ -74,45 +86,43 @@ function selectAutocompletePopup(field_selector, controller_url, popup_selector,
     }
 
     var $input = $(input_selector);
-        $field.click(function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            var $this = $(this);
-            var val = $this.val();
-            var data = cb_data($this);
-                data.query = val;
-            $.ajax({
-                url : controller_url,
-                data : data,
-                success : function(data){
-                    if(typeof cb_success == 'function') {
+    e.preventDefault();
+    e.stopPropagation();
+    var val = $this.val();
+    var data = cb_data($this);
+    data.query = val;
+    $.ajax({
+        url : controller_url,
+        data : data,
+        success : function(data){
+            if(typeof cb_success == 'function') {
+                $popup.show();
+                $popup.find('.autocomplete_window').show();
+                cb_success($this, data);
+            } else {
+                try {
+                    data = JSON.parse(data);
+                    if(data.status == 'OK') {
                         $popup.find('.popup_window').show();
-                        cb_success($this, data);
+                        $popup.find('.popup_content').html(data.data.html);
                     } else {
-                        try {
-                            data = JSON.parse(data);
-                            if(data.status == 'OK') {
-                                $popup.find('.popup_window').show();
-                                $popup.find('.popup_content').html(data.html);
-                            } else {
-                                alert('Ошибка запроса:\n' + data.msg);
-                            }
-                        } catch(e) {
-                            alert('Некорректный ответ сервера');
-                            console.dir(e);
-                        }
+                        alert('Ошибка запроса:\n' + data.msg);
                     }
-                },
-                error : function(data, err) {
-                    if(typeof cb_error == 'function') {
-                        cb_error($this, data, err);
-                    } else {
-                        alert('Error');
-                        console.dir(data);
-                    }
+                } catch(e) {
+                    alert('Некорректный ответ сервера');
+                    console.dir(e);
                 }
-            });
-        });
+            }
+        },
+        error : function(data, err) {
+            if(typeof cb_error == 'function') {
+                cb_error($this, data, err);
+            } else {
+                alert('Error');
+                console.dir(data);
+            }
+        }
+    });
 }
 
 $(document).ready(function(){
@@ -121,7 +131,7 @@ $(document).ready(function(){
         e.stopPropagation();
         $('#autocomplete_popup').hide();
     });
-    $('#autocomplete_window').click(function(e){
+    $('.autocomplete_window, .autocomplete_content').click(function(e){
         e.preventDefault();
         e.stopPropagation();
     });
@@ -132,4 +142,7 @@ selectAutocompletePopup.dataMake = function($input){ return {
 };};
 selectAutocompletePopup.errorMake = function($input, data){
     console.dir(data.errorMessage);
+};
+selectAutocompletePopup.successMake = function($input, data){
+    $('.autocomplete_content').html(data);
 };
