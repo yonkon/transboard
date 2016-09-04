@@ -73,7 +73,7 @@ $app = Yii::app();
                 data : {
                   category : $newRow.find('[name=category]').val(),
                   ajax : 'ajax',
-                  id : $newRow.find('[name=id]');
+                  id : $newRow.find('[name=id]')
                 },
                 success : function(data){
                   $(this).remove();
