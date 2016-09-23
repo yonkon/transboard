@@ -37,7 +37,7 @@ $app = Yii::app();
       </td>
       <td><input type="text" name="name" value="<?= $make->name ?>"></td>
       <td><textarea name="description"><?= $make->description ?></textarea></td>
-      <td><button type="button" class="make_edit" value="Сохранить"></td>
+      <td><button type="button" class="make_edit" value="<?= __('Сохранить') ?>"><?= __('Сохранить') ?></td>
     </tr>
   <?
   }
