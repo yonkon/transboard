@@ -62,8 +62,18 @@
 
   <div class="row">
     <?php echo $form->labelEx($model,'category'); ?>
-    <?php echo $form->hiddenField($model,'category'); ?>
-    <?php echo $form->textField($model->category0,'name'); ?>
+<!--    --><?php //echo $form->hiddenField($model,'category'); ?>
+<!--    --><?php //echo $form->textField($model->category0,'name'); ?>
+    <?php echo $form->autocompletePopupField(
+      $model,
+      'category',
+      'adminAdvert/categories',
+      null,
+      empty($model->category0)?'':$model->category0->name,
+      'dataCategory',
+      'successCategory',
+      'errorCategory'
+    ); ?>
     <?php echo $form->error($model,'category'); ?>
   </div>
 
@@ -85,7 +95,16 @@
 
   <div class="row">
     <?php echo $form->labelEx($model,'model'); ?>
-    <?php echo $form->textField($model,'model'); ?>
+    <?php echo $form->autocompletePopupField(
+      $model,
+      'model',
+      'adminAdvert/models',
+      null,
+      empty($model->model0)?'':$model->model0->name,
+      'dataModel',
+      'successModel',
+      'errorModel'
+    ); ?>
     <?php echo $form->error($model,'model'); ?>
   </div>
 
@@ -103,7 +122,13 @@
 
   <div class="row">
     <?php echo $form->labelEx($model,'currency'); ?>
-    <?php echo $form->textField($model,'currency'); ?>
+
+    <?php /** @var array $currencies_array
+    @var array $currenciesOptions
+     */
+    echo $form->dropDownList($model,'currency', $allCurrencies, array('options' => $currenciesOptions)); ?>
+
+<!--    --><?php //echo $form->textField($model,'currency'); ?>
     <?php echo $form->error($model,'currency'); ?>
   </div>
 

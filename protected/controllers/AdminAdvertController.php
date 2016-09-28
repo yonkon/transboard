@@ -75,6 +75,14 @@ class AdminAdvertController extends AController
     }
     $modelsOptions = array($model->model => array('selected' => true));
 
+    $allCurrencies = Currency::model()->findAll();
+    $currencies = array();
+    foreach($allCurrencies as $as) {
+      $arr = $as->getAttributes();
+      $currencies[$as['id']] = $arr['name'] ;
+    }
+    $currenciesOptions = array($model->currency => array('selected' => true));
+
     $owner = $model->user0;
     $this->render('edit',array(
       'model'=>$model,
@@ -84,6 +92,8 @@ class AdminAdvertController extends AController
 //      'makesOptions' => $makesOptions,
       'models' => $models,
       'owner' => $owner,
+      'allCurrencies' => $currencies,
+      'currenciesOptions' => $currenciesOptions,
 //      'modelsOptions' => $modelsOptions,
       ));
 	}
@@ -118,11 +128,25 @@ class AdminAdvertController extends AController
     die();
   }
 
+  public function actionCategories() {
+    $query = $_REQUEST['query'];
+    $categories = AdvertCategory::model()->findAll(' name LIKE :name', array(':name' => "%{$query}%"));
+    $this->renderPartial('partials/categories', array('categories' => $categories));
+  }
+
   public function actionMakes() {
     $query = $_REQUEST['query'];
-    $category = $_REQUEST['category'];
     $makes = AdvertMake::model()->findAll(' name LIKE :name', array(':name' => "%{$query}%"));
     $this->renderPartial('partials/makes', array('makes' => $makes));
+  }
+
+  public function actionModels() {
+    $query = $_REQUEST['query'];
+    $make = $_REQUEST['make'];
+    $models = AdvertModel::model()->findAll(' name LIKE :name AND make = :make', array(
+      ':name' => "%{$query}%",
+      ':make' => $make));
+    $this->renderPartial('partials/models', array('models' => $models));
   }
 
 

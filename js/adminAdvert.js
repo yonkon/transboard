@@ -59,6 +59,8 @@ function selectAutocompleteHandler($this, e, field_selector, controller_url, pop
         if(typeof cb_data != 'function') {
             if(typeof selectAutocompletePopup[cb_data] == 'function') {
                 cb_data = selectAutocompletePopup[cb_data];
+            } else {
+                cb_data = function(){return {};};
             }
         }
     } else {
@@ -138,11 +140,55 @@ $(document).ready(function(){
 });
 
 selectAutocompletePopup.dataMake = function($input){ return {
-    category : $('#Advert_category').val()
+    category : $('#category').val()
 };};
 selectAutocompletePopup.errorMake = function($input, data){
     console.dir(data.errorMessage);
 };
 selectAutocompletePopup.successMake = function($input, data){
     $('.autocomplete_content').html(data);
+    $('.autocomplete_content .make_edit').click(function(e){
+        var $this = $(this);
+        var $row = $this.parents('tr');
+        id = $row.find('td:first').text().trim();
+        name = $row.find('td:nth(1) input').val().trim();
+        $input.val(name);
+        $('#make').val(id);
+        closeAutocompletePopup();
+    });
 };
+
+selectAutocompletePopup.successCategory = function($input, data){
+    $('.autocomplete_content').html(data);
+    $('.autocomplete_content .category_edit').click(function(e){
+        var $this = $(this);
+        var $row = $this.parents('tr');
+        id = $row.find('td:first').text().trim();
+        name = $row.find('td:nth(1) input').val().trim();
+        $input.val(name);
+        $('#category').val(id);
+        closeAutocompletePopup();
+    });
+};
+
+selectAutocompletePopup.dataModel = function($input){ return {
+    make : $('#make').val()
+}};
+
+selectAutocompletePopup.successModel = function($input, data){
+    $('.autocomplete_content').html(data);
+    $('.autocomplete_content .model_edit').click(function(e){
+        var $this = $(this);
+        var $row = $this.parents('tr');
+        id = $row.find('td:first').text().trim();
+        name = $row.find('td:nth(1) input').val().trim();
+        $input.val(name);
+        $('#model').val(id);
+        closeAutocompletePopup();
+    });
+};
+
+
+function closeAutocompletePopup(){
+    $('#autocomplete_popup').hide();
+}
