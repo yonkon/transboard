@@ -20,8 +20,7 @@ $app = Yii::app();
   <tbody>
   <tr>
     <td>
-      <input type="hidden" name="category" value="<?=
-      $category ?>">
+      <input type="hidden" name="category" >
     </td>
     <td><input type="text" name="name"></td>
     <td><textarea name="description"></textarea></td>

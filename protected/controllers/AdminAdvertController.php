@@ -4,7 +4,75 @@ class AdminAdvertController extends AController
 {
 	public function actionAdd()
 	{
-		$this->render('add');
+        $app = Yii::app();
+        /**
+         * @var $app CWebApplication
+         * @var $model Advert
+         */
+
+        $model= new Advert;
+     
+//    $app->clientScript->registerScript('autocomplete','   jQuery("#' . CHtml::activeId($model, "user") . '").autocomplete({"showAnim":"fold","source":"/user/ajaxGetUserList"});         ');
+        
+
+        if(isset($_POST['Advert']))
+        {
+            $model->attributes=$_POST['Advert'];
+            if($model->validate())
+            {
+                if($model->save()) {
+                    // form inputs are valid, do something here
+                    $this->redirect($app->createUrl('adminAdvert/edit/'.$model->id) );
+                    return;
+                }
+                throw new CException('Не удалось сохранить обїявление');
+            }
+        }
+
+//    $app->clientScript->registerScript('userAutocomplete',
+//      '
+//      selectAutocomplete("#user_query", "'. $app->createUrl('adminAdvert/users').'", "query", "#user_select", "#user");
+//      '
+//      ,
+//      CClientScript::POS_END);
+        $allStatuses = AdvertStatus::model()->findAll();
+        $advertStatuses = array();
+        foreach($allStatuses as $as) {
+            $arr = $as->getAttributes();
+            $advertStatuses[$as['id']] = $arr['name'] ;
+        }
+        
+
+        $allMakes = AdvertMake::model()->findAll();
+        $makes = array();
+        foreach($allMakes as $as) {
+            $arr = $as->getAttributes();
+            $makes[$as['id']] = $arr['name'] ;
+        }
+        
+        $allModels = AdvertModel::model()->findAll();
+        $models = array();
+        foreach($allModels as $as) {
+            $arr = $as->getAttributes();
+            $models[$as['id']] = $arr['name'] ;
+        }
+
+        $allCurrencies = Currency::model()->findAll();
+        $currencies = array();
+        foreach($allCurrencies as $as) {
+            $arr = $as->getAttributes();
+            $currencies[$as['id']] = $arr['name'] ;
+        }
+
+        $owner = $model->user0;
+        $this->render('add',array(
+            'model'=>$model,
+            'advertStatuses' => $advertStatuses,
+            'makes' => $makes,
+            'models' => $models,
+            'owner' => $owner,
+            'allCurrencies' => $currencies,
+        ));
 	}
 
 	public function actionEdit($id)
@@ -13,7 +81,6 @@ class AdminAdvertController extends AController
     if(empty($id)) {
       $this->redirect($app->createUrl('adminAdvert'));
     }
-    $app = Yii::app();
     /**
      * @var $app CWebApplication
      * @var $model Advert
