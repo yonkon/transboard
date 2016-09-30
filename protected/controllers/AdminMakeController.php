@@ -25,32 +25,45 @@ class AdminMakeController extends AController
 		$this->render('delete');
 	}
 
-	public function actionEdit()
-	{
-    $model=new AdvertMake;
+	public function actionEdit($id)  {
+    /** @var CWebApplication $app */
+    $app = Yii::app();
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    $make = AdvertMake::model()->find('id = :id', array(':id' => $id));
 
-    // uncomment the following code to enable ajax-based validation
-    /*
-    if(isset($_POST['ajax']) && $_POST['ajax']==='advert-make-edit-form')
-    {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-    }
-    */
-
-    if(isset($_POST['AdvertMake']))
-    {
-      $model->attributes=$_POST['AdvertMake'];
-      if($model->validate())
-      {
-        // form inputs are valid, do something here
-        return;
+    if(empty($_REQUEST['ajax'])) {
+      if(empty($make)) {
+        $app->user->setFlash('error', __('Марки не найдено'));
+      } else {
+        $make->name = $name;
+        $make->description = $description;
+        if(!$make->save()) {
+          $app->user->setFlash('error', __('Марки не найдено'));
+        }
       }
-    }
-    $this->render('edit',array('model'=>$model));
-	}
+      $this->render('edit', array('make' => $make));
+    } else {
+      if(empty($make)) {
+        self::jsonAnswer('', self::STATUS_ERROR, __('Такая категория уже существует'));
+        die();
+      }
+      $make->name = $name;
+      $make->description = $description;
+      $status = $make->save();
 
-	public function actionList()
+      if($status) {
+        self::jsonAnswer(array('id' => $make->id));
+      } else {
+        self::jsonAnswer('', self::STATUS_ERROR, CHtml::errorSummary($make));
+      }
+      die();
+    }
+  }
+
+
+  public function actionList()
 	{
 		$this->render('list');
 	}

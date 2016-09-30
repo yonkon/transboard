@@ -35,8 +35,8 @@ $app = Yii::app();
         <input type="hidden" name="id" value="<?= $make->id ?>">
         <?= $make->id ?>
       </td>
-      <td><input type="text" name="name" value="<?= $make->name ?>"></td>
-      <td><textarea name="description"><?= $make->description ?></textarea></td>
+      <td><input type="text" name="name" data-value="<?= $make->name ?>" value="<?= $make->name ?>"></td>
+      <td><textarea name="description" data-value="<?= $make->description ?>"><?= $make->description ?></textarea></td>
       <td><button type="button" class="make_edit" value="<?= __('Сохранить') ?>"><?= __('Сохранить') ?></td>
     </tr>
   <?

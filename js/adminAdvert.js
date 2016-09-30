@@ -150,10 +150,31 @@ selectAutocompletePopup.successMake = function($input, data){
     $('.autocomplete_content .make_edit').click(function(e){
         var $this = $(this);
         var $row = $this.parents('tr');
-        id = $row.find('td:first').text().trim();
-        name = $row.find('td:nth(1) input').val().trim();
+
+        var id = $row.find('td:first').text().trim();
+
+        var name = $row.find('td:nth(1) input').val().trim();
+        var old_name = $row.find('td:nth(1) input').data('value');
+
+        var descr = $row.find('td:nth(2) textarea').val().trim();
+        var old_descr = $row.find('td:nth(2) textarea').data('value');
+
         $input.val(name);
         $('#make').val(id);
+
+        if (name != old_name || descr != old_descr) {
+            $.ajax({
+                url : '/adminMake/edit/'+id,
+                type : 'post',
+                data : {
+                    id : id,
+                    name : name,
+                    description : descr,
+                    ajax : 'ajax'
+                }
+            });
+        }
+
         closeAutocompletePopup();
     });
 };
@@ -163,10 +184,29 @@ selectAutocompletePopup.successCategory = function($input, data){
     $('.autocomplete_content .category_edit').click(function(e){
         var $this = $(this);
         var $row = $this.parents('tr');
-        id = $row.find('td:first').text().trim();
-        name = $row.find('td:nth(1) input').val().trim();
+        var id = $row.find('td:first').text().trim();
+        var name = $row.find('td:nth(1) input').val().trim();
+        var old_name = $row.find('td:nth(1) input').data('value');
+
+        var descr = $row.find('td:nth(2) textarea').val().trim();
+        var old_descr = $row.find('td:nth(2) textarea').data('value');
+
         $input.val(name);
         $('#category').val(id);
+
+        if (name != old_name || descr != old_descr) {
+            $.ajax({
+                url : '/adminCategory/edit/'+id,
+                type : 'post',
+                data : {
+                    id : id,
+                    name : name,
+                    description : descr,
+                    ajax : 'ajax'
+                }
+            });
+        }
+
         closeAutocompletePopup();
     });
 };

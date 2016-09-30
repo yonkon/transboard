@@ -4,7 +4,26 @@ class AdminCategoryController extends AController
 {
 	public function actionAdd()
 	{
-		$this->render('add');
+    $category = new AdvertCategory();
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    if(!empty(AdvertCategory::model()->find('name LIKE :name ', array(':name' => $name)))) {
+      self::jsonAnswer('', self::STATUS_ERROR, __('Такая категория уже существует'));
+      die();
+    }
+    $category->name = $name;
+    $category->description = $description;
+    $status = $category->save();
+    if(empty($_REQUEST['ajax'])) {
+      $this->render('add', array('category' => $category));
+    } else {
+      if($status) {
+        self::jsonAnswer(array('id' => $category->id));
+      } else {
+        self::jsonAnswer('', self::STATUS_ERROR, CHtml::errorSummary($category));
+      }
+      die();
+    }
 	}
 
 	public function actionDelete()
@@ -12,29 +31,42 @@ class AdminCategoryController extends AController
 		$this->render('delete');
 	}
 
-	public function actionEdit()
+	public function actionEdit($id)
   {
-    $model=new AdvertCategory;
+    /** @var CWebApplication $app */
+    $app = Yii::app();
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    $category = AdvertCategory::model()->find('id = :id', array(':id' => $id));
 
-    // uncomment the following code to enable ajax-based validation
-    /*
-    if(isset($_POST['ajax']) && $_POST['ajax']==='advert-category-edit-form')
-    {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-    }
-    */
-
-    if(isset($_POST['AdvertCategory']))
-    {
-      $model->attributes=$_POST['AdvertCategory'];
-      if($model->validate())
-      {
-        // form inputs are valid, do something here
-        return;
+    if(empty($_REQUEST['ajax'])) {
+      if(empty($category)) {
+        $app->user->setFlash('error', __('Категория не найдена'));
+      } else {
+        $category->name = $name;
+        $category->description = $description;
+        if(!$category->save()) {
+          $app->user->setFlash('error', __('Категория не найдена'));
+        }
       }
+      $this->render('edit', array('category' => $category));
+    } else {
+      if(empty($category)) {
+        self::jsonAnswer('', self::STATUS_ERROR, __('Такая категория уже существует'));
+        die();
+      }
+      $category->name = $name;
+      $category->description = $description;
+      $status = $category->save();
+
+      if($status) {
+        self::jsonAnswer(array('id' => $category->id));
+      } else {
+        self::jsonAnswer('', self::STATUS_ERROR, CHtml::errorSummary($category));
+      }
+      die();
     }
-    $this->render('edit',array('model'=>$model));
   }
 
 	public function actionList()

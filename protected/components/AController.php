@@ -43,7 +43,7 @@ class AController extends Controller
     return $result;
   }
 
-  public static function jsonAnswer($data = null, $status = self::STATUS_OK, $message = '', $print = true){
+  public static function jsonAnswer($data = '', $status = self::STATUS_OK, $message = '', $print = true){
     $json =  json_encode(array(
       'status' => $status,
       'msg' => $message,

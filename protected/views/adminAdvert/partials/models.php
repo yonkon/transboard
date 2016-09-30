@@ -20,8 +20,8 @@ $app = Yii::app();
   <tbody>
   <tr>
     <td>
-      <input type="hidden" name="model" value="<?=
-      $model ?>">
+      <input type="hidden" name="make" value="<?=
+      $make ?>">
     </td>
     <td><input type="text" name="name"></td>
     <td><textarea name="description"></textarea></td>
@@ -31,11 +31,14 @@ $app = Yii::app();
   foreach($models as $model) { ?>
     <tr>
       <td>
+        <input type="hidden" name="make" value="<?=
+        $make ?>">
+
         <input type="hidden" name="id" value="<?= $model->id ?>">
         <?= $model->id ?>
       </td>
-      <td><input type="text" name="name" value="<?= $model->name ?>"></td>
-      <td><textarea name="description"><?= $model->description ?></textarea></td>
+      <td><input type="text" name="name" data-value="<?= $model->name ?>" value="<?= $model->name ?>"></td>
+      <td><textarea name="description" data-value="<?= $model->description ?>"><?= $model->description ?></textarea></td>
       <td><button type="button" class="model_edit" value="<?= __('Сохранить') ?>"><?= __('Сохранить') ?></td>
     </tr>
     <?

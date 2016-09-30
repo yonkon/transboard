@@ -213,7 +213,7 @@ class AdminAdvertController extends AController
     $models = AdvertModel::model()->findAll(' name LIKE :name AND make = :make', array(
       ':name' => "%{$query}%",
       ':make' => $make));
-    $this->renderPartial('partials/models', array('models' => $models));
+    $this->renderPartial('partials/models', array('models' => $models, 'make' => $make));
   }
 
 
