@@ -150,6 +150,22 @@ class AdminAdvertController extends AController
     }
     $currenciesOptions = array($model->currency => array('selected' => true));
 
+    $allRegions = Region::getRegions('%%');
+    $regions = array();
+    foreach($allRegions as $as) {
+      $arr = $as->getAttributes();
+      $regions[$as['id']] = $arr['title_ru'] ;
+    }
+    $regionsOptions = array($model->region => array('selected' => true));
+
+    $allCities = Region::getCities('%%');
+    $cities = array();
+    foreach($allCities as $as) {
+      $arr = $as->getAttributes();
+      $cities[$as['id']] = $arr['title_ru'] ;
+    }
+    $citiesOptions = array($model->region => array('selected' => true));
+
     $owner = $model->user0;
     $this->render('edit',array(
       'model'=>$model,
@@ -159,8 +175,15 @@ class AdminAdvertController extends AController
 //      'makesOptions' => $makesOptions,
       'models' => $models,
       'owner' => $owner,
+
       'allCurrencies' => $currencies,
       'currenciesOptions' => $currenciesOptions,
+
+      'allRegions' => $regions,
+      'regionsOptions' => $regionsOptions,
+
+      'allCities' => $cities,
+      'citiesOptions' => $citiesOptions,
 //      'modelsOptions' => $modelsOptions,
       ));
 	}
@@ -216,8 +239,14 @@ class AdminAdvertController extends AController
     $this->renderPartial('partials/models', array('models' => $models, 'make' => $make));
   }
 
+  public function actionRegions() {
+    $query = $_REQUEST['query'];
+    $regions = Region::getRegions($query);
+    $this->renderPartial('partials/regions', array('regions' => $regions));
+  }
 
-public function actionPromotion()
+
+  public function actionPromotion()
 	{
 		$this->render('promotion');
 	}

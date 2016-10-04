@@ -87,7 +87,7 @@ $app = Yii::app();
             $newRow.appendTo($table.find('tbody'));
             $row.find('input:visible, textarea').val('');
           } else {
-            alert ('Error\n'+date.msg);
+            alert ('Error\n'+data.msg);
           }
         } catch (e) {
           alert('Некорректный ответ сервера');

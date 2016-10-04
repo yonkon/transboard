@@ -59,14 +59,21 @@ $app = Yii::app();
       data : {
         name : $row.find('[name=name]').val(),
         description : $row.find('[name=description]').val(),
-        model : $row.find('[name=model]').val(),
+        make : $row.find('[name=make]').val(),
         ajax : 'ajax'
       },
       success : function(data){
         try {
+          debugger;
           data = JSON.parse(data);
           if(data.status == 'OK') {
-            $newRow.find('[name=id]').val(data.id);
+            $newRow.find('[name=id]').val(data.data.id);
+            var id = data.data.id;
+            var name = $row.find('td:nth(1) input').val().trim();
+
+            $('#model_query').val(name);
+            $('#model').val(id);
+
             var $newBtn = $newRow.find('.autocomplete_model_add');
             $newBtn.removeClass('autocomplete_model_add').addClass('autocomplete_model_delete').text('Удалить');
             $newBtn.unbind('click').click(function(e){
@@ -89,7 +96,7 @@ $app = Yii::app();
             $newRow.appendTo($table.find('tbody'));
             $row.find('input:visible, textarea').val('');
           } else {
-            alert ('Error\n'+date.msg);
+            alert ('Error\n'+data.msg);
           }
         } catch (e) {
           alert('Некорректный ответ сервера');

@@ -140,19 +140,21 @@
 
   <div class="row">
     <?php echo $form->labelEx($model,'region'); ?>
-    <?php echo $form->textField($model,'region'); ?>
+    <?php  echo $form->dropDownList($model,'region', $allRegions, array('options' => $regionsOptions)); ?>
     <?php echo $form->error($model,'region'); ?>
   </div>
 
   <div class="row">
     <?php echo $form->labelEx($model,'city'); ?>
-    <?php echo $form->textField($model,'city'); ?>
+<!--    --><?php //echo $form->textField($model,'city'); ?>
+    <?php  echo $form->dropDownList($model,'city', $allCities, array('options' => $citiesOptions)); ?>
+
     <?php echo $form->error($model,'city'); ?>
   </div>
 
   <div class="row">
     <?php echo $form->labelEx($model,'published_to'); ?>
-    <?php echo $form->textField($model,'published_to'); ?>
+    <?php echo $form->dateTimeField($model,'published_to'); ?>
     <?php echo $form->error($model,'published_to'); ?>
   </div>
 

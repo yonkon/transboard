@@ -30,7 +30,8 @@ class AdminMakeController extends AController
     $app = Yii::app();
     $id = $_REQUEST['id'];
     $name = $_REQUEST['name'];
-    $description = $_REQUEST['description'];
+    $description = empty($_REQUEST['description']) ? '' : $_REQUEST['description'];
+
     $make = AdvertMake::model()->find('id = :id', array(':id' => $id));
 
     if(empty($_REQUEST['ajax'])) {
@@ -46,7 +47,7 @@ class AdminMakeController extends AController
       $this->render('edit', array('make' => $make));
     } else {
       if(empty($make)) {
-        self::jsonAnswer('', self::STATUS_ERROR, __('Такая категория уже существует'));
+        self::jsonAnswer('', self::STATUS_ERROR, __('Марки не найдено'));
         die();
       }
       $make->name = $name;

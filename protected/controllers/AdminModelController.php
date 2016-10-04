@@ -3,38 +3,103 @@
 class AdminModelController extends AController
 {
 	public function actionAdd()
-	{
-		$this->render('add');
-	}
+  {
+    /** @var CWebApplication $app */
+    $app = Yii::app();
+//    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    $make = $_REQUEST['make'];
+    $model = new AdvertModel();
+    $model->setAttributes($_REQUEST);
 
-	public function actionDelete()
+    if(empty($make)) {
+      if(empty($_REQUEST['ajax'])) {
+        $app->user->setFlash('error', __('Марка не указана'));
+        $this->render('edit', array('model' => $model));
+        return;
+      } else {
+        $this->jsonAnswer('', self::STATUS_ERROR, __('Марка не указана'));
+        die();
+      }
+    }
+
+    $model = AdvertModel::model()->find('name LIKE :name AND make = :make', array(':name' => $name, ':make' => $make));
+
+    if(empty($_REQUEST['ajax'])) {
+      if(empty($model)) {
+        $app->user->setFlash('error', __('Модель не найдена'));
+      } else {
+        $model->name = $name;
+        $model->description = $description;
+        if(!$model->save()) {
+          $app->user->setFlash('error', __('Модель не найдена'));
+        }
+      }
+      $this->render('edit', array('model' => $model));
+    } else {
+      if(!empty($model)) {
+        self::jsonAnswer('', self::STATUS_ERROR, __('Такая модель уже существует'));
+        die();
+      }
+      $model = new advertModel();
+      $model->name = $name;
+      $model->description = $description;
+      $model->make = $make;
+      $status = $model->save();
+
+      if($status) {
+        self::jsonAnswer(array('id' => $model->id));
+      } else {
+        self::jsonAnswer('', self::STATUS_ERROR, CHtml::errorSummary($model));
+      }
+      die();
+    }
+  }
+
+
+  public function actionDelete()
 	{
 		$this->render('delete');
 	}
 
-  public function actionEdit()
+  public function actionEdit($id)
   {
-    $model=new AdvertModel;
+    /** @var CWebApplication $app */
+    $app = Yii::app();
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
 
-    // uncomment the following code to enable ajax-based validation
-    /*
-    if(isset($_POST['ajax']) && $_POST['ajax']==='advert-model-edit-form')
-    {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-    }
-    */
+    $model = AdvertModel::model()->find('id = :id', array(':id' => $id));
 
-    if(isset($_POST['AdvertModel']))
-    {
-      $model->attributes=$_POST['AdvertModel'];
-      if($model->validate())
-      {
-        // form inputs are valid, do something here
-        return;
+    if(empty($_REQUEST['ajax'])) {
+      if(empty($model)) {
+        $app->user->setFlash('error', __('Модель не найдена'));
+      } else {
+        $model->name = $name;
+        $model->description = $description;
+        if(!$model->save()) {
+          $app->user->setFlash('error', __('Модель не найдена'));
+        }
       }
+      $this->render('edit', array('model' => $model));
+    } else {
+      if(empty($model)) {
+        self::jsonAnswer('', self::STATUS_ERROR, __('Такая модель уже существует'));
+        die();
+      }
+      $model->name = $name;
+      $model->description = $description;
+      $status = $model->save();
+
+      if($status) {
+        self::jsonAnswer(array('id' => $model->id));
+      } else {
+        self::jsonAnswer('', self::STATUS_ERROR, CHtml::errorSummary($model));
+      }
+      die();
     }
-    $this->render('edit',array('model'=>$model));
   }
 
 	public function actionList()
