@@ -186,3 +186,15 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var region_to_city = {
+    <?
+      $parts = array();
+      foreach($region_to_city as $r => $cities) {
+        $parts[] = $r . ' : [ ' . join(',', $cities) . ' ]';
+      }
+      echo join(",\n", $parts);
+    ?>
+  };
+</script>

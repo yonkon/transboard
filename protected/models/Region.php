@@ -25,12 +25,12 @@ class Region extends CActiveRecord
 {
   public static function getRegions($query)
   {
-    return self::model()->findAll('pid = 1 AND title_ru LIKE :query', array(':query' => $query));
+    return self::model()->findAll('pid = 1 AND country = 1 AND title_ru LIKE :query', array(':query' => $query));
   }
 
   public static function getCities($query)
   {
-    return self::model()->findAll('pid > 1 AND title_ru LIKE :query', array(':query' => $query));
+    return self::model()->findAll('pid > 1 AND country = 1 AND title_ru LIKE :query', array(':query' => $query));
   }
 
   /**

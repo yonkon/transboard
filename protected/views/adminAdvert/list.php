@@ -1,10 +1,14 @@
 <?php
-/* @var $this AdminAdvertController */
+/**
+ * @var $this AdminAdvertController
+ * @var $app CWebApplication
+ * */
 
 $this->breadcrumbs=array(
 	'Admin Advert'=>array('/adminAdvert'),
 	'List',
 );
+$app = Yii::app();
 ?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 
@@ -27,7 +31,7 @@ $this->breadcrumbs=array(
     /** @var Advert[] $items */
     foreach($items as $ad) { ?>
       <tr>
-        <td><?= $ad->id ?></td>
+        <td><a href="<?= $app->createUrl('adminAdvert/edit') .'/' . $ad->id ?>"><?= $ad->id ?></a></td>
         <td><?= $ad->name ?></td>
         <td><?= $ad->makeAdminThumb() ?></td>
         <td><?= $ad->category0->name ?></td>
