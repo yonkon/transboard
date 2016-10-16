@@ -12,9 +12,35 @@
  * The followings are the available model relations:
  * @property AdvertCategory[] $tblAdvertCategories
  * @property ParamValue[] $paramValues
+ * @property ParamValue[] $_paramValues
  */
 class Param extends CActiveRecord
 {
+	public $_paramValues;
+
+	public function getParamValues()
+	{
+		return $this->initParamValues();
+	}
+
+	public function initParamValues()
+	{
+		if(empty($this->_paramValues)) {
+			$this->_paramValues = array();
+			foreach ($this->paramValues as $pv) {
+				$this->_paramValues[$pv->id] = $pv;
+			}
+		}
+		return $this->_paramValues;
+	}
+
+	public function hasParamValue($param_id) {
+		$this->initParamValues();
+		return empty($this->_paramValues[$param_id]);
+	}
+	
+	
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -104,5 +130,25 @@ class Param extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public static function getCompares() {
+		return array(
+			"string" 	=> __('Точное соответствие') ,
+			"like" 		=> __('Частичное сответствие'),
+			"int" 		=> __('Целое число'),
+			"float" 	=> __('Вещественное число'),
+			"bool" 		=> __('Да/Нет')
+		);
+	}
+
+	public static function getParamComparesOptions(Param $param) {
+		$html = '';
+		$compares = self::getCompares();
+		foreach ( $compares as $compare => $text) {
+			$checked = ($compare == $param->compare)? 'checked' : '';
+			$html .= "<option value=\"{$compare}\" $checked > $text </option>";
+		}
+		return $html;
 	}
 }

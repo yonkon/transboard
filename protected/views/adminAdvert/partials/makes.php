@@ -30,7 +30,7 @@ $app = Yii::app();
   <?
   foreach($makes as $make) { ?>
     <tr>
-      <td>
+      <td><? //TODO разобраться с категориями ?>
         <input type="hidden" name="category" value="<?= $category ?>">
         <input type="hidden" name="id" value="<?= $make->id ?>">
         <?= $make->id ?>

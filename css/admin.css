@@ -123,3 +123,52 @@
   right: -17px;
   top: -17px;
 }
+
+#cities_bag {
+  display: none;
+}
+
+.param_value_add .delete_btn {
+  display: none;
+}
+
+table#Params td {
+  border: 1px solid rgb(239, 239, 239);
+}
+
+.param_value_list {
+  display: none;
+}
+
+.opened .param_value_list {
+  display: block;
+}
+
+.param_value_list input {
+  display: inline-block;
+  width: calc(100% - 30px);
+}
+
+.param_value_list a.param_value_remove {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background: url('/images/close.png') no-repeat center;
+  background-size: contain;
+  text-decoration: none;
+}
+
+.toggle_category_param_header {
+  float: right;
+  text-decoration: none;
+  margin-right: 20px;
+  display: inline-block;
+  width: auto;
+  padding: 8px;
+  border: 2px ridge darkslategray;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}

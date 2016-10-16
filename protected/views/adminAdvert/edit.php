@@ -197,4 +197,37 @@
       echo join(",\n", $parts);
     ?>
   };
+
+  var city_to_region = {
+    <?
+    $parts = array();
+    foreach($city_to_region as $c => $region) {
+      $parts[] = $c . ' : ' . $region;
+    }
+    echo join(",\n", $parts);
+    ?>
+  };
+
+  var cities_db = {
+    <?
+    $parts = array();
+    foreach($allCities as $c => $name) {
+      $parts[] = $c . ' : "' . $name . '"';
+    }
+    echo join(",\n", $parts);
+    ?>
+  };
+
+  var regions_db = {
+    <?
+    $parts = array();
+    foreach($allRegions as $r => $name) {
+      $parts[] = $r . ' : "' . $name . '"';
+    }
+    echo join(",\n", $parts);
+    ?>
+  };
+
 </script>
+
+<div id="cities_bag"></div>

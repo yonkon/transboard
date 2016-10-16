@@ -137,6 +137,22 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopPropagation();
     });
+
+    $('#Advert_region').change(function(e){
+        //TODO remove DOM linking, implement \w array
+        $('#Advert_city option').appendTo('#cities_bag');
+        var current_region = $(this).val();
+        var current_cities = region_to_city[current_region];
+        $.each(current_cities, function (i, el) {
+            $('#cities_bag option[value='+el+']').appendTo('#Advert_city');
+        });
+    });
+
+    $('#Advert_city').change(function (e) {
+       $('#Advert_region').val(city_to_region[$(this).val()]);
+    });
+
+
 });
 
 selectAutocompletePopup.dataMake = function($input){ return {
@@ -227,6 +243,7 @@ selectAutocompletePopup.successModel = function($input, data){
         closeAutocompletePopup();
     });
 };
+
 
 
 function closeAutocompletePopup(){

@@ -13,6 +13,7 @@
  * The followings are the available model relations:
  * @property Advert[] $adverts
  * @property AdvertModel[] $advertModels
+ * TODO разобраться с категориями 
  */
 class AdvertMake extends CActiveRecord
 {

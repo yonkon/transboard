@@ -4,7 +4,18 @@ class AdminParamController extends AController
 {
 	public function actionAdd()
 	{
-		$this->render('add');
+		$param = new Param();
+		if(!empty($_REQUEST['Param'])) {
+			$param->setAttributes($_REQUEST['Param']);
+			if($param->validate()) {
+				if($param->save()) {
+					Yii::app()->user->setFlash('success', 'Параметр успешн добавлен');
+					$this->redirect(Yii::app()->createUrl('adminParamValue/list/'.$param->id));
+				}
+			}
+		}
+
+		$this->render('add', array('model' => $param));
 	}
 
 	public function actionDelete()
@@ -19,7 +30,8 @@ class AdminParamController extends AController
 
 	public function actionList()
 	{
-		$this->render('list');
+		$params = Param::model()->with('paramValues')->findAll();
+		$this->render('list', array('params' => $params));
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -48,4 +60,22 @@ class AdminParamController extends AController
 		);
 	}
 	*/
+	public function getParamValuesHtml(Param $param)
+	{
+		$param->initParamValues();
+		return $this->renderPartial('partial/paramValues', array('param' => $param), true );
+	}
+
+	public function beforeAction($action)
+	{
+		$app = Yii::app();
+		/** @var CWebApplication $app */
+		$app->clientScript->registerCoreScript('jquery');
+
+		$app->clientScript->registerScriptFile('/js/adminParam.js', CClientScript::POS_BEGIN);
+		$app->clientScript->registerScriptFile('/js/tablesorter/jquery.tablesorter.js', CClientScript::POS_BEGIN);
+		$app->clientScript->registerCssFile('/js/tablesorter/themes/blue/style.css');
+		return parent::beforeAction($action);
+	}
+
 }
